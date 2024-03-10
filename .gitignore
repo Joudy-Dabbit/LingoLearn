@@ -10,7 +10,7 @@
 *.user
 *.userosscache
 *.sln.docstates
-/LinegoLearn/wwwroot/
+/LingoLearn/wwwroot/
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -253,8 +253,8 @@ orleans.codegen.cs
 # RIA/Silverlight projects
 Generated_Code/
 
-/LinegoLearn/appsettings.json
-/LinegoLearn/appsettings.Development.json
+/LingoLearn/appsettings.json
+/LingoLearn/appsettings.Development.json
 
 # Backup & report files from converting an old project file
 # to a newer Visual Studio version. Backup files are not needed,
@@ -367,6 +367,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 # wwwroot
-/LinegoLearn.API/wwwroot/
+/LingoLearn.API/wwwroot/
 .idea/
 /ClientApp/.VSCodeCounter/2022-11-07_17-05-07
