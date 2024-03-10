@@ -10,17 +10,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{4E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{A45D4E6C-9A27-45CA-BCF5-375CE46FDEE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LingoLearn.Application.Mobile", "LingoLearn.Application.Mobile\LingoLearn.Application.Mobile.csproj", "{FF579BA7-A8EB-42F7-BF3C-9CAFAF14607C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Mobile", "Application.Mobile\Application.Mobile.csproj", "{FF579BA7-A8EB-42F7-BF3C-9CAFAF14607C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LingoLearn.Application.Dashboard", "LingoLearn.Application.Dashboard\LingoLearn.Application.Dashboard.csproj", "{36D6C2AC-C03E-44F8-80E4-134106D87DB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Dashboard", "Application.Dashboard\Application.Dashboard.csproj", "{36D6C2AC-C03E-44F8-80E4-134106D87DB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LingoLearn.Application.Website", "LingoLearn.Application.Website\LingoLearn.Application.Website.csproj", "{79741612-6F3D-487F-94A7-5628CDC0098F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Website", "Application.Website\Application.Website.csproj", "{79741612-6F3D-487F-94A7-5628CDC0098F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LingoLearn.Persistence", "LingoLearn.Persistence\LingoLearn.Persistence.csproj", "{8CCD0178-6285-45AE-BADF-26A89D391C59}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{8CCD0178-6285-45AE-BADF-26A89D391C59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LingoLearn.Infrastructure", "LingoLearn.Infrastructure\LingoLearn.Infrastructure.csproj", "{D19F82FA-6274-4086-BBD1-A5B5764B3973}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{D19F82FA-6274-4086-BBD1-A5B5764B3973}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LingoLearn.Contracts", "LingoLearn.Contracts\LingoLearn.Contracts.csproj", "{F4E5C398-2B48-4A8A-91D8-478D0CFEB9BE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{F4E5C398-2B48-4A8A-91D8-478D0CFEB9BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
