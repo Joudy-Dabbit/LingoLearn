@@ -1,6 +1,19 @@
+using Domain.Entities.Base;
+
 namespace Domain.Entities.Languages;
 
-public class Challenge
+public class Challenge : Entity
 {
+    public Challenge(string name, string description, Guid languageId)
+    {
+        Name = name;
+        Description = description;
+        LanguageId = languageId;
+    }
+
+    public string Name { get; set; }
+    public string Description { get; set; }
     
+    public Guid LanguageId { get; private set; }
+    public Language Language { get; private set; }
 }

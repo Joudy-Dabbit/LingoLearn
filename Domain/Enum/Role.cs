@@ -1,4 +1,4 @@
-namespace Domain.Entities.Security;
+namespace Domain.Enum;
 
 public enum Role
 {

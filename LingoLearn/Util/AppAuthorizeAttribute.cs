@@ -1,4 +1,4 @@
-using Domain.Entities.Security;
+using Domain.Enum;
 using Microsoft.AspNetCore.Authorization;
 
 namespace LingoLearn.Util;
