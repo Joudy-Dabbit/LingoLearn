@@ -20,4 +20,8 @@ public class Comment : Entity
     
     public Guid LessonId { get; private set; }
     public Lesson Lesson { get; private set; }
+    
+        
+    private readonly List<Reply> _replies = new();
+    public IReadOnlyCollection<Reply> Replies => _replies.AsReadOnly();    
 }

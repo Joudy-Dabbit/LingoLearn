@@ -3,9 +3,12 @@ using LingoLearn.Util;
 using Microsoft.OpenApi.Models;
 using Neptunee.AppBuilder.ExceptionHandlerMiddleware;
 using Neptunee.DependencyInjection;
+using Neptunee.EntityFrameworkCore.Extensions;
 using Neptunee.OperationResponse.DependencyInjection;
 using Neptunee.Swagger;
 using Neptunee.Swagger.DependencyInjection;
+using Persistence;
+using Persistence.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +32,7 @@ builder.Services
     })
     .AddNeptuneeFileService(o => o.SetBasePath(builder.Environment.WebRootPath))
     // .AddApplication()
-    // .AddInfrastructure(builder.Configuration, builder.Environment)
+    .AddPersistence(builder.Configuration, builder.Environment)
     .AddNeptunee();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -69,6 +72,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
-// await app.MigrationAsync<StayHomeDbContext>(DataSeed.Seed);
+
+await app.MigrationAsync<LingLearnDbContext>();
 
 app.Run();
