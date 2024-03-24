@@ -17,6 +17,17 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Neptunee.Handlers" Version="1.0.0" />
+      <PackageReference Include="Neptunee.OperationResponse" Version="1.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Users\Queries\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Contracts\Contracts.csproj" />
+      <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
 </Project>

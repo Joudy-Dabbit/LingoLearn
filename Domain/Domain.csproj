@@ -8,10 +8,10 @@
 
     <ItemGroup>
       <Folder Include="Events\" />
-      <Folder Include="Repositories\" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="EasyRefreshToken" Version="7.1.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.17">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

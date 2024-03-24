@@ -7,6 +7,7 @@ using Domain.Entities.Languages;
 using Domain.Entities.Notifications;
 using Domain.Entities.Security;
 using Domain.Entities.Settings;
+using EasyRefreshToken.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +51,7 @@ public class LingLearnDbContext:  IdentityDbContext<User, IdentityRole<Guid>, Gu
     
      #region -Security-
      public DbSet<User> Users => Set<User>();
+     public DbSet<RefreshToken<User, Guid>> RefreshTokens { get; set; }
      #endregion
      
      #region -Settings-

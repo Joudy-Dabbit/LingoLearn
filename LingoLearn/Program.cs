@@ -1,4 +1,8 @@
 using System.Text.Json.Serialization;
+using Domain;
+using Domain.Entities.Security;
+using EasyRefreshToken.DependencyInjection;
+using EasyRefreshToken.Models;
 using LingoLearn.Util;
 using Microsoft.OpenApi.Models;
 using Neptunee.AppBuilder.ExceptionHandlerMiddleware;
@@ -51,6 +55,13 @@ builder.Services.AddCors(o =>
             .SetIsOriginAllowed(_ => true);
     });
 });
+
+builder.Services.AddRefreshToken<LingLearnDbContext, RefreshToken<User, Guid>, User, Guid>
+(op =>
+    {
+        op.TokenExpiredDays = ConstValues.ExpireRefreshTokenDay;
+    }
+);
 
 var app = builder.Build();
 if (!Directory.Exists("wwwroot"))

@@ -4,7 +4,7 @@ namespace Domain.Errors;
 
 public class DomainError
 {
-    public class User
+    public class UserError
     {
         // public static HttpMessage NotFound =>
         // new (HttpStatusCode.NotFound, "User Not Found"); 

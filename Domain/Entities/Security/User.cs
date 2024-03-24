@@ -1,9 +1,10 @@
 using Domain.Entities.Base;
 using Domain.Entities.Languages;
+using EasyRefreshToken.Abstractions;
 
 namespace Domain.Entities.Security;
 
-public class User : BaseIdentity
+public class User : BaseIdentity, IUser<Guid>
 {
     protected User(string fullName, string imageUrl, DateTime? birthDate)
     {
