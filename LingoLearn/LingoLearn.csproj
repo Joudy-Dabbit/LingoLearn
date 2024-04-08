@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LingoLearn.Application.Mobile\LingoLearn.Application.Mobile.csproj" />
+      <ProjectReference Include="..\LingoLearn.Infrastructure\LingoLearn.Infrastructure.csproj" />
+      <ProjectReference Include="..\LingoLearn.Persistence\LingoLearn.Persistence.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="LingoLearn.jpg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Remove="Properties\PublishProfiles\stayhome22-001-site1 - Web Deploy (2).pubxml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="wwwroot\Seed\eedb53c8-771f-415b-9202-2ad5b50918cd_StayHome.jpg" />
+      <Content Remove="wwwroot\Seed\aa0a9617-3106-403d-95ba-a250405ec04c_StayHome.jpg" />
+      <Content Remove="wwwroot\Seed\99c34dd9-4596-4589-a8a8-49cfc8bbf225_StayHome.jpg" />
+      <Content Remove="wwwroot\Uploads\2023-6\c30ddd9d-2ade-4237-8042-8310aea98396Game wallpaper by Black0rWhite - Download on ZEDGE™ _ afe4.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\Seed\" />
+      <Folder Include="wwwroot\Uploads\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\Uploads\2023-6\34e1b619-0d43-4260-8b53-21af6bf4dae9Game wallpaper by Black0rWhite - Download on ZEDGE™ _ afe4.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Uploads\2023-6\7c02a8c8-c6c6-4618-9a04-778353c6db73Game wallpaper by Black0rWhite - Download on ZEDGE™ _ afe4.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\Uploads\2023-6\7dc76b4d-66a4-4b27-8378-ce52462f5b2cbudget, how to maintain monthly budget in excel, monthly budget in excel, monthly budget.jfif" />
+      <_ContentIncludedByDefault Remove="wwwroot\Uploads\2023-6\8f7c00a1-daf1-44bd-80e4-1b3cd68bbfe6One Editor Fell In Love With Cooking This Year—Here Are 12 Recipes She Loves (1).jfif" />
+      <_ContentIncludedByDefault Remove="wwwroot\Uploads\2023-6\9a85e6b2-a592-42d7-8f31-4809990203a21.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\Uploads\2023-6\c4b7286b-3cab-434d-8a8d-ab09426ec791Lebanese Oven Roasted Chicken {فروج مشوي} (5).jfif" />
+    </ItemGroup>
+
+</Project>
