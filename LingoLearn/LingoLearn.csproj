@@ -30,6 +30,8 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Remove="Properties\PublishProfiles\stayhome22-001-site1 - Web Deploy (2).pubxml" />
+      <None Remove="Properties\PublishProfiles\finalstayhome-001-site1 - FTP.pubxml" />
+      <None Remove="Properties\PublishProfiles\finalstayhome-001-site1 - Web Deploy.pubxml" />
     </ItemGroup>
 
     <ItemGroup>

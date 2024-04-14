@@ -12,9 +12,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace LingoLearn.Controllers.Mobile;
 
-public sealed class CustomerController : ApiController
+public sealed class StudentController : ApiController
 {
-    public CustomerController(IRequestDispatcher dispatcher) : base(dispatcher) { }
+    public StudentController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     
     [AllowAnonymous]
     [HttpPost,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]

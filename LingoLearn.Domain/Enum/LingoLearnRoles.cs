@@ -4,6 +4,6 @@ public enum LingoLearnRoles
 {
     Admin = 1,
     Employee = 2,
-    Driver = 3,
+    Student = 3,
     Customer = 4,
 }
