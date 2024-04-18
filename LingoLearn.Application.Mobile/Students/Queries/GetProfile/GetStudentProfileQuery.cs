@@ -18,6 +18,7 @@ public class GetStudentProfileQuery
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public string ImagUrl { get; set; }
         public DateTime? BirthDate { get; set; }
         public Gender Gender { get;  set; }
 
@@ -29,7 +30,8 @@ public class GetStudentProfileQuery
                 BirthDate = c.BirthDate,
                 PhoneNumber = c.PhoneNumber,
                 Email = c.Email,
-                Gender = c.Gender
+                Gender = c.Gender,
+                ImagUrl = c.ImagUrl
             };
     }
 }

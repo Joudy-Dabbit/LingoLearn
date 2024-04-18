@@ -42,6 +42,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="wwwroot\ProfileImage\" />
       <Folder Include="wwwroot\Seed\" />
       <Folder Include="wwwroot\Uploads\" />
     </ItemGroup>
@@ -53,6 +54,10 @@
       <_ContentIncludedByDefault Remove="wwwroot\Uploads\2023-6\8f7c00a1-daf1-44bd-80e4-1b3cd68bbfe6One Editor Fell In Love With Cooking This Year—Here Are 12 Recipes She Loves (1).jfif" />
       <_ContentIncludedByDefault Remove="wwwroot\Uploads\2023-6\9a85e6b2-a592-42d7-8f31-4809990203a21.jpg" />
       <_ContentIncludedByDefault Remove="wwwroot\Uploads\2023-6\c4b7286b-3cab-434d-8a8d-ab09426ec791Lebanese Oven Roasted Chicken {فروج مشوي} (5).jfif" />
+      <_ContentIncludedByDefault Remove="wwwroot\Uploads\2024-4\150e500c-9180-4184-a0ab-b6050405d2dcSee more 3D in my profile⚡⚡⚡.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\Uploads\2024-4\c378d048-3e33-4a1a-a300-6a403d6bdf14See more 3D in my profile⚡⚡⚡.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\Uploads\2024-4\c9a88b9e-f88e-4629-b3b5-5a9ae0544272See more 3D in my profile⚡⚡⚡.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\Uploads\2024-4\d67f99d9-8184-4004-adbc-00e73416f04f07eee685-c984-4632-8fdc-0aeaabc855b5.jpg" />
     </ItemGroup>
 
 </Project>
