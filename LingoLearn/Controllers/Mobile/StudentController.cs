@@ -24,7 +24,7 @@ public sealed class StudentController : ApiController
         [FromQuery] LogInStudentCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();
     
-    [AppAuthorize(LingoLearnRoles.Customer)]
+    [AppAuthorize(LingoLearnRoles.Student)]
     [HttpGet,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [ProducesResponseType(typeof(GetStudentProfileQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetMyProfile(
@@ -37,10 +37,10 @@ public sealed class StudentController : ApiController
     public async Task<IActionResult> Create(    
         [FromServices] IRequestHandler<CreateStudentCommand.Request,
             OperationResponse<CreateStudentCommand.Response>> handler,
-        [FromQuery] CreateStudentCommand.Request request)
+        [FromForm] CreateStudentCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
-    [AppAuthorize(LingoLearnRoles.Customer)]
+    [AppAuthorize(LingoLearnRoles.Student)]
     [HttpPost,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetStudentProfileQuery.Response))]
     public async Task<IActionResult> Modify(    

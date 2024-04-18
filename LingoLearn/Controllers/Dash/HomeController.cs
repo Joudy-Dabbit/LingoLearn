@@ -14,7 +14,7 @@ public class HomeController: ApiController
 {
     public HomeController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     
-    [AppAuthorize(LingoLearnRoles.Employee, LingoLearnRoles.Admin)]
+    [AppAuthorize(LingoLearnRoles.Admin, LingoLearnRoles.Admin)]
     [HttpGet,LingoLearnRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(GetHomeQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get(

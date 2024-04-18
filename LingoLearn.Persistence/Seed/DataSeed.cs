@@ -4,6 +4,7 @@ using Domain.Entities;
 using Domain.Enum;
 using LingoLearn.Persistence.Context;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LingoLearn.Persistence.Seed;
@@ -15,7 +16,7 @@ public static class DataSeed
          var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
          var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>(); 
          SeedWwwroot(context);
-         // await SeedRole(roleManager, context);
+         await SeedRole(roleManager, context);
          // await SeedCitiesWithArea(context);
          // await SeedVehicleTypes(context);
          // await SeedUser(userManager, context);
@@ -40,7 +41,7 @@ public static class DataSeed
 //         var employee = new Employee("Hiba Baeij", "088888888",
 //             new DateTime(2002, 6, 2), "employee@gmail.com", AddImage());
 //         await userManager.CreateAsync(employee, "1234");
-//         await userManager.AddToRoleAsync(employee, nameof(LingoLearnRoles.Employee));
+//         await userManager.AddToRoleAsync(employee, nameof(LingoLearnRoles.Admin));
 //         await context.SaveChangesAsync();
 //
 //         var customer = new Customer("Aisha Biazed", "077777777",
@@ -60,22 +61,22 @@ public static class DataSeed
 //         await context.SaveChangesAsync();
 //     }
 //
-//     private static async Task SeedRole( RoleManager<IdentityRole<Guid>> roleManager,
-//         LingoLearnDbContext context)
-//     {
-//         if (roleManager.Roles.Any()) return;
-//
-//         var roles = Enum.GetValues(typeof(LingoLearnRoles)).Cast<LingoLearnRoles>().Select(a => a.ToString());
-//         var identityRoles = roleManager.Roles.Select(a => a.Name).ToList();
-//         var newRoles = roles.Except(identityRoles).ToList();
-//
-//         foreach (var @new in newRoles)
-//         {
-//             await roleManager.CreateAsync(new IdentityRole<Guid>() { Id = Guid.NewGuid(), Name = @new });
-//         }
-//
-//         await context.SaveChangesAsync();
-//     }
+     private static async Task SeedRole( RoleManager<IdentityRole<Guid>> roleManager,
+         DbContext context)
+     {
+         if (roleManager.Roles.Any()) return;
+
+         var roles = Enum.GetValues(typeof(LingoLearnRoles)).Cast<LingoLearnRoles>().Select(a => a.ToString());
+         var identityRoles = roleManager.Roles.Select(a => a.Name).ToList();
+         var newRoles = roles.Except(identityRoles).ToList();
+
+         foreach (var @new in newRoles)
+         {
+             await roleManager.CreateAsync(new IdentityRole<Guid>() { Id = Guid.NewGuid(), Name = @new });
+         }
+
+         await context.SaveChangesAsync();
+     }
 //
 //     private static async Task SeedCategories(LingoLearnDbContext context)
 //     {

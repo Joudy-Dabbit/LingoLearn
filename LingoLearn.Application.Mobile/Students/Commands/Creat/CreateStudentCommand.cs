@@ -12,6 +12,7 @@ public class CreateStudentCommand
 {
     public class Request : IRequest<OperationResponse<Response>>  
     {
+        public IFormFile? ImageFile { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }  
         public string Password { get; set; }  
@@ -19,7 +20,6 @@ public class CreateStudentCommand
         public DateTime? BirthDate { get; set; }
         public string DeviceToken { get; set; }
         public Gender Gender { get;  set; }
-        public Guid CityId { get; set; }
     }   
     public class Response : TokenDto
     {

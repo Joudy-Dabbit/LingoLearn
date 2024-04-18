@@ -15,7 +15,7 @@ public class StudentController : ApiController
 {
     public StudentController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     
-    [AppAuthorize(LingoLearnRoles.Employee, LingoLearnRoles.Admin)]
+    [AppAuthorize(LingoLearnRoles.Admin, LingoLearnRoles.Admin)]
     [HttpGet,LingoLearnRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(List<GetAllStudentsQuery.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(
@@ -23,7 +23,7 @@ public class StudentController : ApiController
             OperationResponse<List<GetAllStudentsQuery.Response>>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync();    
     
-    [AppAuthorize(LingoLearnRoles.Employee, LingoLearnRoles.Admin)]
+    [AppAuthorize(LingoLearnRoles.Admin, LingoLearnRoles.Admin)]
     [HttpGet,LingoLearnRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(GetByIdStudentQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(
@@ -32,7 +32,7 @@ public class StudentController : ApiController
         [FromQuery] GetByIdStudentQuery.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
 
-    [AppAuthorize(LingoLearnRoles.Employee, LingoLearnRoles.Admin)]
+    [AppAuthorize(LingoLearnRoles.Admin, LingoLearnRoles.Admin)]
     [HttpGet,LingoLearnRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(List<GetStudentNamesQuery.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetNames(

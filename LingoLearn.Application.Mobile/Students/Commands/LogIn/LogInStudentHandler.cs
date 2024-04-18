@@ -36,7 +36,7 @@ public class LogInStudentHandler : IRequestHandler<LogInStudentCommand.Request,
             return DomainError.User.Blocked;
          
         var accessToken = _userRepository.GenerateAccessToken(customer, 
-            new List<string>(){LingoLearnRoles.Customer.ToString()});
+            new List<string>(){LingoLearnRoles.Student.ToString()});
         var refreshToken = await _userRepository.GenerateRefreshToken(customer.Id);
         
         if (!refreshToken.IsSucceded)

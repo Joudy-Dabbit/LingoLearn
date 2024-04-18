@@ -26,4 +26,15 @@ public class Student: User
     
     private readonly List<Language> _languages = new();
     public IReadOnlyCollection<Language> Languages => _languages.AsReadOnly();
+    
+    public void Modify(string fullName,
+        DateTime? birthDate, string email, 
+        string phoneNumber, Gender gender)
+    {
+        FullName = fullName;
+        PhoneNumber = phoneNumber;
+        BirthDate = birthDate;
+        Email = email;
+        Gender = gender;
+    }
 }
