@@ -1,15 +1,17 @@
+using Domain.Enum;
+
 namespace Domain.Entities;
 
 public class Language : AggregateRoot
 {
-    public Language(string name, string description, string imageUrl)
+    public Language(ProgrammingLang name, string description, string imageUrl)
     {
         Name = name;
         Description = description;
         ImageUrl = imageUrl;
     }
 
-    public string Name { get; set; }
+    public ProgrammingLang Name { get; set; }
     public string Description { get; set; }
     public string ImageUrl { get; set; }
 

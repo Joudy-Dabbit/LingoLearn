@@ -9,6 +9,7 @@ using Neptunee.BaseCleanArchitecture.DependencyInjection;
 using Neptunee.BaseCleanArchitecture.SwaggerApi;
 using LingoLearn.Persistence;
 using LingoLearn.Infrastructure;
+using LingoLearn.Infrastructure.Filters;
 using LingoLearn.Persistence.Context;
 using LingoLearn.Persistence.Seed;
 using LingoLearn.Util;
@@ -24,6 +25,7 @@ builder.Services
     {
         o.AddBearerSecurityScheme();
         o.AddApiGroupDocs<ApiGroupNames>();
+        o.OperationFilter<CurrentProgrammingLangFilter>();
         o.SwaggerDoc("All", new OpenApiInfo()
         {
             Title = "All",

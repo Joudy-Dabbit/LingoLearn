@@ -16,4 +16,17 @@ public class HttpService : IHttpService
 
     public Guid? CurrentUserId => _httpContextAccessor.HttpContext?.User?
         .FindFirst(ClaimTypes.NameIdentifier)?.Value?.StringToGuid();
+
+    public string? CurrentProgrammingLang
+    {
+        get
+        {
+            if (!_httpContextAccessor.HttpContext!.Request.Headers.ContainsKey("ProgrammingLang"))
+            {
+                return null;
+            }
+
+            return _httpContextAccessor.HttpContext!.Request.Headers["ProgrammingLang"];
+        }
+    }
 }
