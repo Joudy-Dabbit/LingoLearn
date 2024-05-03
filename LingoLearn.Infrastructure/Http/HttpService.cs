@@ -21,12 +21,12 @@ public class HttpService : IHttpService
     {
         get
         {
-            if (!_httpContextAccessor.HttpContext!.Request.Headers.ContainsKey("ProgrammingLang"))
+            if (!_httpContextAccessor.HttpContext!.Request.Headers.ContainsKey("CurrentProgrammingLang"))
             {
                 return null;
             }
 
-            return _httpContextAccessor.HttpContext!.Request.Headers["ProgrammingLang"];
+            return _httpContextAccessor.HttpContext!.Request.Headers["CurrentProgrammingLang"];
         }
     }
 }

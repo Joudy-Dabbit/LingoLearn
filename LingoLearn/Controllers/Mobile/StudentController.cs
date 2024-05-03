@@ -8,6 +8,7 @@ using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using Neptunee.BaseCleanArchitecture.SwaggerApi.Attributes;
 using LingoLearn.Application.Mobile.Customers;
+using LingoLearn.Application.Mobile.Languages;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace LingoLearn.Controllers.Mobile;
@@ -23,6 +24,13 @@ public sealed class StudentController : ApiController
         [FromServices] IRequestHandler<LogInStudentCommand.Request, OperationResponse<LogInStudentCommand.Response>> handler,
         [FromQuery] LogInStudentCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();
+    
+    [AppAuthorize(LingoLearnRoles.Student)]
+    [HttpGet,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(List<GetAllLanguagesQuery.Response>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllLanguages(
+        [FromServices] IRequestHandler<GetAllLanguagesQuery.Request, OperationResponse<List<GetAllLanguagesQuery.Response>>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync(); 
     
     [AppAuthorize(LingoLearnRoles.Student)]
     [HttpGet,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]

@@ -16,8 +16,4 @@
       <ProjectReference Include="..\LingoLearn.Domain\LingoLearn.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Languages\Queries\" />
-    </ItemGroup>
-
 </Project>
