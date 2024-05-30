@@ -255,9 +255,6 @@ namespace LingoLearn.Persistence.Migrations
                     b.Property<int>("Name")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("StudentId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTimeOffset>("UtcDateCreated")
                         .HasColumnType("datetimeoffset");
 
@@ -271,8 +268,6 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("Name")
                         .IsUnique();
-
-                    b.HasIndex("StudentId");
 
                     b.ToTable("Languages");
                 });
@@ -434,7 +429,7 @@ namespace LingoLearn.Persistence.Migrations
                     b.Property<Guid>("LanguageId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("StudentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
@@ -450,7 +445,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("StudentLanguages");
                 });
@@ -487,9 +482,6 @@ namespace LingoLearn.Persistence.Migrations
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("LanguageId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -534,8 +526,6 @@ namespace LingoLearn.Persistence.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -831,13 +821,6 @@ namespace LingoLearn.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Language", b =>
-                {
-                    b.HasOne("Domain.Entities.Student", null)
-                        .WithMany("Languages")
-                        .HasForeignKey("StudentId");
-                });
-
             modelBuilder.Entity("Domain.Entities.Lesson", b =>
                 {
                     b.HasOne("Domain.Entities.Level", "Level")
@@ -890,27 +873,20 @@ namespace LingoLearn.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.StudentLanguage", b =>
                 {
                     b.HasOne("Domain.Entities.Language", "Language")
-                        .WithMany()
+                        .WithMany("Participants")
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                    b.HasOne("Domain.Entities.Student", "Student")
+                        .WithMany("SelectedLanguages")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Language");
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Entities.User", b =>
-                {
-                    b.HasOne("Domain.Entities.Language", null)
-                        .WithMany("Participants")
-                        .HasForeignKey("LanguageId");
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Domain.Entities.UserNotification", b =>
@@ -1020,7 +996,7 @@ namespace LingoLearn.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Student", b =>
                 {
-                    b.Navigation("Languages");
+                    b.Navigation("SelectedLanguages");
                 });
 #pragma warning restore 612, 618
         }

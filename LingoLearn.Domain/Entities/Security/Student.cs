@@ -24,17 +24,22 @@ public class Student: User
     public string ImagUrl { get; private set; }
 
     
-    private readonly List<Language> _languages = new();
-    public IReadOnlyCollection<Language> Languages => _languages.AsReadOnly();
+    private readonly List<StudentLanguage> _selectedLanguages = new();
+    public IReadOnlyCollection<StudentLanguage> SelectedLanguages => _selectedLanguages.AsReadOnly();
     
-    public void Modify(string fullName,
-        DateTime? birthDate, string email, 
-        string phoneNumber, Gender gender)
+    public void Modify(string fullName, DateTime? birthDate,
+        string email, string phoneNumber, Gender gender)
     {
         FullName = fullName;
         PhoneNumber = phoneNumber;
         BirthDate = birthDate;
         Email = email;
         Gender = gender;
+    }
+   
+    public void SelectLanguage(Guid languageId)
+    {
+        var studentLanguage = new StudentLanguage(Id, languageId);
+        _selectedLanguages.Add(studentLanguage);
     }
 }

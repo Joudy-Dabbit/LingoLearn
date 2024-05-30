@@ -27,7 +27,7 @@ public class GetAllLanguagesQuery
                 Name = l.Name.ToString(),
                 Description = l.Description,
                 ImageUrl = l.ImageUrl,
-                IsSelected = l.Participants.Any(p => p.Id == userId)
+                IsSelected = l.Participants.Any(p => p.StudentId == userId)
             };
     }
 }

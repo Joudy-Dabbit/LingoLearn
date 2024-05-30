@@ -21,5 +21,6 @@ public class GetAllLanguagesHandler: IRequestHandler<GetAllLanguagesQuery.Reques
     public async Task<OperationResponse<List<GetAllLanguagesQuery.Response>>> HandleAsync(GetAllLanguagesQuery.Request request,
         CancellationToken cancellationToken = new())
         => await _repository.GetAsync(e => !e.UtcDateDeleted.HasValue,
-            GetAllLanguagesQuery.Response.Selector(_httpService.CurrentUserId!.Value));
+            GetAllLanguagesQuery.Response.Selector(_httpService.CurrentUserId!.Value),
+            "Participants");
 }

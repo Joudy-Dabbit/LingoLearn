@@ -14,10 +14,10 @@ public class Language : AggregateRoot
     public ProgrammingLang Name { get; set; }
     public string Description { get; set; }
     public string ImageUrl { get; set; }
-
     
-    private readonly List<User> _participants = new();
-    public IReadOnlyCollection<User> Participants => _participants.AsReadOnly();
+    
+    private readonly List<StudentLanguage> _participants = new();
+    public IReadOnlyCollection<StudentLanguage> Participants => _participants.AsReadOnly();
     
     
     private readonly List<Level> _levels = new();

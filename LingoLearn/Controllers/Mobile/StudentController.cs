@@ -9,6 +9,7 @@ using Neptunee.BaseCleanArchitecture.Requests;
 using Neptunee.BaseCleanArchitecture.SwaggerApi.Attributes;
 using LingoLearn.Application.Mobile.Customers;
 using LingoLearn.Application.Mobile.Languages;
+using LingoLearn.Application.Mobile.Students;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace LingoLearn.Controllers.Mobile;
@@ -52,46 +53,16 @@ public sealed class StudentController : ApiController
     [HttpPost,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetStudentProfileQuery.Response))]
     public async Task<IActionResult> Modify(    
-        [FromServices] IRequestHandler<ModifyStudentCommand.Request,
-            OperationResponse<GetStudentProfileQuery.Response>> handler,
+        [FromServices] IRequestHandler<ModifyStudentCommand.Request, OperationResponse<GetStudentProfileQuery.Response>> handler,
         [FromQuery] ModifyStudentCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();
 
-    // #region - Addresses -
-    //
-    // [AppAuthorize(LingoLearnRoles.Customer)]
-    // [HttpGet,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
-    // [ProducesResponseType(typeof(List<GetMyAddressesQuery.Response>), StatusCodes.Status200OK)]
-    // public async Task<IActionResult> GetMyAddresses(
-    //     [FromServices] IRequestHandler<GetMyAddressesQuery.Request, OperationResponse<IEnumerable<GetMyAddressesQuery.Response>>> handler)
-    //     => await handler.HandleAsync(new()).ToJsonResultAsync();   
-    //
-    //
-    // [AppAuthorize(LingoLearnRoles.Customer)]
-    // [HttpPost,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
-    // [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
-    // public async Task<IActionResult> AddAddress(
-    //     [FromServices] IRequestHandler<AddCustomerAddressCommand.Request, OperationResponse> handler,
-    //     [FromQuery] AddCustomerAddressCommand.Request request)
-    //     => await handler.HandleAsync(request).ToJsonResultAsync();     
-    //
-    //
-    // [AppAuthorize(LingoLearnRoles.Customer)]
-    // [HttpPost,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
-    // [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
-    // public async Task<IActionResult> ModifyAddress(
-    //     [FromServices] IRequestHandler<ModifyCustomerAddressCommand.Request, OperationResponse> handler,
-    //     [FromQuery] ModifyCustomerAddressCommand.Request request)
-    //     => await handler.HandleAsync(request).ToJsonResultAsync();   
-    //
-    //
-    // [AppAuthorize(LingoLearnRoles.Customer)]
-    // [HttpDelete,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
-    // [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
-    // public async Task<IActionResult> DeleteAddress(
-    //     [FromServices] IRequestHandler<DeleteCustomerAddressCommand.Request, OperationResponse> handler,
-    //     [FromQuery] DeleteCustomerAddressCommand.Request request)
-    //     => await handler.HandleAsync(request).ToJsonResultAsync();
-    // #endregion
 
+    [AppAuthorize(LingoLearnRoles.Student)]
+    [HttpPost, LingoLearnRoute(ApiGroupNames.Mobile), ApiGroup(ApiGroupNames.Mobile)]
+    [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
+    public async Task<IActionResult> SelectLanguage(
+        [FromServices] IRequestHandler<SelectLanguageCommand.Request, OperationResponse> handler,
+        [FromBody] SelectLanguageCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();
 }
