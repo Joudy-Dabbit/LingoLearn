@@ -11,8 +11,8 @@ public class LogInStudentCommand
 {
     public class Request : IRequest<OperationResponse<Response>>
     {
-        [DefaultValue("customer@gmail.com")] public string Email { get; set; }
-        [DefaultValue("1234")] public string password { get; set; }
+        [DefaultValue("joudy.6.dabbit@gmail.com")] public string Email { get; set; }
+        [DefaultValue("1111")] public string password { get; set; }
     }
     public class Response : TokenDto
     {

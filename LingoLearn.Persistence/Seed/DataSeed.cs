@@ -17,14 +17,14 @@ public static class DataSeed
          var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>(); 
          SeedWwwroot(context);
          await SeedRole(roleManager, context);
-         // await SeedCitiesWithArea(context);
+         await SeedLanguages(context);
          // await SeedVehicleTypes(context);
          // await SeedUser(userManager, context);
          // await SeedCategories(context);
          // await SeedShops(context);
          // await SeedVehicles(context);
      }
-//
+
 //     private static async Task SeedUser(UserManager<User> userManager, 
 //         LingoLearnDbContext context)
 //     {
@@ -77,21 +77,24 @@ public static class DataSeed
 
          await context.SaveChangesAsync();
      }
-//
-//     private static async Task SeedCategories(LingoLearnDbContext context)
-//     {
-//         if (context.Categories.Any())
-//         {
-//             return;
-//         }
-//
-//         var category1 = new Category("ألبسة", AddImage());
-//         var category2 = new Category("وجبات سريعة", AddImage());
-//         var category3 = new Category("مفروشات", AddImage());
-//         context.AddRange(new List<Category>() {category1, category2, category3});
-//         
-//         await context.SaveChangesAsync();
-//     }
+
+     private static async Task SeedLanguages(LingoLearnDbContext context)
+     {
+         if (context.Languages.Any()) return;
+
+         context.AddRange(new List<Language>()
+         {
+             new (ProgrammingLang.CSharp, "Advanced programming language", AddImage()),
+             new (ProgrammingLang.Java, "Advanced programming language", AddImage()),
+             new (ProgrammingLang.JavaScript, "Advanced programming language", AddImage()),
+             new (ProgrammingLang.Dart, "Advanced programming language", AddImage()),
+             new (ProgrammingLang.PHP, "Advanced programming language", AddImage()),
+             new (ProgrammingLang.SQL, "Advanced programming language", AddImage()),
+         });
+         
+         await context.SaveChangesAsync();
+     }
+     
 //     private static async Task SeedShops(LingoLearnDbContext context)
 //     {
 //         if (context.Shops.Any())
