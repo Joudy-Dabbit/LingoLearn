@@ -60,6 +60,7 @@ public class LingoLearnDbContext : BaseIdentityDbContext<Guid,User>, ILingoLearn
     #region -Security-
     public DbSet<User> Users => Set<User>();
     public DbSet<Student> Students => Set<Student>();
+    public DbSet<Admin> Admins => Set<Admin>();
     public DbSet<RefreshToken<User, Guid>> RefreshTokens { get; set; }
     #endregion
      

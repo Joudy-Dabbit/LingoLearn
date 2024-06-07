@@ -17,50 +17,29 @@ public static class DataSeed
          var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>(); 
          SeedWwwroot(context);
          await SeedRole(roleManager, context);
+         await SeedAdmin(userManager, context);
          await SeedLanguages(context);
          // await SeedVehicleTypes(context);
-         // await SeedUser(userManager, context);
          // await SeedCategories(context);
          // await SeedShops(context);
          // await SeedVehicles(context);
      }
 
-//     private static async Task SeedUser(UserManager<User> userManager, 
-//         LingoLearnDbContext context)
-//     {
-//         if (context.Students.Any()) return;
-//         
-//         var cityId = context.Cities.First().Id;
-//
-//         var admin = new Employee("joudy dabbit", "099999999",
-//             new DateTime(2001, 6, 2), "admin@gmail.com", AddImage());
-//         await userManager.CreateAsync(admin, "1234");
-//         await userManager.AddToRoleAsync(admin, nameof(LingoLearnRoles.Admin));
-//         await context.SaveChangesAsync();
-//
-//         var employee = new Employee("Hiba Baeij", "088888888",
-//             new DateTime(2002, 6, 2), "employee@gmail.com", AddImage());
-//         await userManager.CreateAsync(employee, "1234");
-//         await userManager.AddToRoleAsync(employee, nameof(LingoLearnRoles.Admin));
-//         await context.SaveChangesAsync();
-//
-//         var customer = new Customer("Aisha Biazed", "077777777",
-//             "customer@gmail.com", new DateTime(2003, 6, 2), cityId, Gender.Female);
-//         await userManager.CreateAsync(customer, "1234");
-//         await userManager.AddToRoleAsync(customer, nameof(LingoLearnRoles.Customer));       
-//         await context.SaveChangesAsync();
-//         
-//         var vehicleTypeId = context.VehicleTypes.First(c => !c.UtcDateDeleted.HasValue).Id;
-//         var vehicle = new Vehicle("هوندا", vehicleTypeId, 100, "#FFFF00", "101", AddImage());
-//         context.Add(vehicle);
-//         await context.SaveChangesAsync();
-//         var driver = new Driver("default driver", "077777777",
-//             new DateTime(2003, 6, 2), "driver@gmail.com", vehicle.Id);
-//         await userManager.CreateAsync(driver, "1234");
-//         await userManager.AddToRoleAsync(driver, nameof(LingoLearnRoles.Driver));
-//         await context.SaveChangesAsync();
-//     }
-//
+     private static async Task SeedAdmin(UserManager<User> userManager, LingoLearnDbContext context)
+     {
+         if (context.Admins.Any()) return;
+         
+         var admin = new Admin("joudy dabbit", "admin@gmail.com");
+         await userManager.CreateAsync(admin, "1234");
+         await userManager.AddToRoleAsync(admin, nameof(LingoLearnRoles.Admin));
+         await context.SaveChangesAsync();
+
+         var employee = new Admin("Hiba Baeij","employee@gmail.com");
+         await userManager.CreateAsync(employee, "1234");
+         await userManager.AddToRoleAsync(employee, nameof(LingoLearnRoles.Admin));
+         await context.SaveChangesAsync();
+     }
+
      private static async Task SeedRole( RoleManager<IdentityRole<Guid>> roleManager,
          DbContext context)
      {
