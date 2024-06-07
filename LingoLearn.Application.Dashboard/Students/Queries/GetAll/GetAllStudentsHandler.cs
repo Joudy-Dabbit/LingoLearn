@@ -2,7 +2,7 @@ using Domain.Repositories;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace LingoLearn.Application.Dashboard.Customers;
+namespace LingoLearn.Application.Dashboard.Students;
 
 public class GetAllStudentsHandler : IRequestHandler<GetAllStudentsQuery.Request,
         OperationResponse<List<GetAllStudentsQuery.Response>>>
@@ -16,6 +16,5 @@ public class GetAllStudentsHandler : IRequestHandler<GetAllStudentsQuery.Request
 
     public async Task<OperationResponse<List<GetAllStudentsQuery.Response>>> HandleAsync(GetAllStudentsQuery.Request request,
         CancellationToken cancellationToken = new())
-        => await _repository.GetAsync(e => !e.UtcDateDeleted.HasValue,
-            GetAllStudentsQuery.Response.Selector());
+        => await _repository.GetAsync(e => !e.UtcDateDeleted.HasValue, GetAllStudentsQuery.Response.Selector());
 }

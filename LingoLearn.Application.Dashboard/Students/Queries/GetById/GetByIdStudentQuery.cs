@@ -4,7 +4,7 @@ using Domain.Enum;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace LingoLearn.Application.Dashboard.Customers;
+namespace LingoLearn.Application.Dashboard.Students;
 
 public class GetByIdStudentQuery
 {
@@ -21,20 +21,8 @@ public class GetByIdStudentQuery
         public string? Email { get; set; }
         public bool IsBlock { get; set; }
         public DateTime? BirthDate { get; set; }
-       // public List<AddressRes> Address { get; set; }
         public Gender Gender { get;  set; }
-
-        // public class AddressRes
-        // {
-        //     public Guid Id { get; set; }
-        //     public string Name { get; set; }
-        //     public Guid CityId { get; set; }
-        //     public Guid AreaId { get; set; }
-        //     public string HouseNumber { get; set; }
-        //     public string Street { get; set; }
-        //     public string Floor { get; set; }
-        //     public string? Additional { get; set; }
-        // }
+        public string ImageUrl { get; set; }
 
         public static Expression<Func<Student, Response>> Selector() => c
             => new()
@@ -46,18 +34,7 @@ public class GetByIdStudentQuery
                 PhoneNumber = c.PhoneNumber,
                 IsBlock = c.DateBlocked.HasValue,
                 Gender = c.Gender,
-                // Address = c.Addresses.Where(a => !a.UtcDateDeleted.HasValue)
-                //     .Select(a => new AddressRes()
-                //     {
-                //         Id = a.Id,
-                //         Name = a.Name,
-                //         AreaId = a.AreaId,
-                //         CityId = a.Area.CityId,
-                //         Additional = a.Additional,
-                //         Floor = a.Floor,
-                //         Street = a.Street,
-                //         HouseNumber = a.HouseNumber
-                //     }).ToList(),
+                ImageUrl = c.ImagUrl
             };
     }
 }

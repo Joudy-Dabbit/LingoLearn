@@ -6,7 +6,7 @@ using Neptunee.BaseCleanArchitecture.Dispatchers.RequestDispatcher;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 using Neptunee.BaseCleanArchitecture.SwaggerApi.Attributes;
-using LingoLearn.Application.Dashboard.Customers;
+using LingoLearn.Application.Dashboard.Students;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace LingoLearn.Controllers.Dash;
@@ -15,6 +15,7 @@ public class StudentController : ApiController
 {
     public StudentController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     
+  
     [AppAuthorize(LingoLearnRoles.Admin, LingoLearnRoles.Admin)]
     [HttpGet,LingoLearnRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [ProducesResponseType(typeof(List<GetAllStudentsQuery.Response>), StatusCodes.Status200OK)]

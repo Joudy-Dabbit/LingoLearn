@@ -3,7 +3,7 @@ using Domain.Entities;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace LingoLearn.Application.Dashboard.Customers;
+namespace LingoLearn.Application.Dashboard.Students;
 
 public class GetAllStudentsQuery
 {
@@ -17,9 +17,8 @@ public class GetAllStudentsQuery
         public Guid Id { get; set; }
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
-        public Guid CityId { get; set; }
+        public string ImageUrl { get; set; }
         public DateTime? BirthDate { get; set; }
-        public int OrderCount { get; set; }
         public bool IsBlock { get; set; }
 
         public static Expression<Func<Student, Response>> Selector() => c
@@ -29,7 +28,8 @@ public class GetAllStudentsQuery
                 FullName = c.FullName,
                 PhoneNumber = c.PhoneNumber,
                 BirthDate = c.BirthDate,
-                IsBlock = c.DateBlocked.HasValue
+                IsBlock = c.DateBlocked.HasValue,
+                ImageUrl = c.ImagUrl
             };
     }
 }

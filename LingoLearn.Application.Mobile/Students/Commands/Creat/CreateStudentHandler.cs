@@ -24,23 +24,23 @@ public class CreateStudentHandler : IRequestHandler<CreateStudentCommand.Request
     public async Task<OperationResponse<CreateStudentCommand.Response>> HandleAsync(CreateStudentCommand.Request request, CancellationToken cancellationToken = new CancellationToken())
     {
         var imageUrl = await _fileService.Upload(request.ImageFile);
-        var customer = new Student(request.FullName,
+        var student = new Student(request.FullName,
             request.PhoneNumber, request.Email, request.BirthDate,
             request.Gender, imageUrl ?? "", request.DeviceToken);
         
-        var identityResult = await _userRepository.AddWithRole(customer, LingoLearnRoles.Student, request.Password);
+        var identityResult = await _userRepository.AddWithRole(student, LingoLearnRoles.Student, request.Password);
         
         if(!identityResult.Succeeded)
             return identityResult.ToOperationResponse<CreateStudentCommand.Response>();
         
-        var accessToken = _userRepository.GenerateAccessToken(customer, 
+        var accessToken = _userRepository.GenerateAccessToken(student, 
             new List<string>(){LingoLearnRoles.Student.ToString()});
-        var refreshToken = await _userRepository.GenerateRefreshToken(customer.Id);
+        var refreshToken = await _userRepository.GenerateRefreshToken(student.Id);
         
         if (!refreshToken.IsSucceded)
             return OperationResponse.WithBadRequest(refreshToken.ErrorMessage).ToResponse<CreateStudentCommand.Response>();
         
-        return await _userRepository.GetAsync(customer.Id, 
+        return await _userRepository.GetAsync(student.Id, 
             CreateStudentCommand.Response.Selector(accessToken, refreshToken.Token));
     }
 }

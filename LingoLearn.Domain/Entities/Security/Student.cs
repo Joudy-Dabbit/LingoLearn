@@ -18,6 +18,18 @@ public class Student: User
         Email = email;
         DeviceToken = deviceToken;
     }
+    
+    public Student(string fullName, string phoneNumber, string email,
+        DateTime? birthDate, Gender gender, string imagUrl)
+    {
+        Gender = gender;
+        ImagUrl = imagUrl;
+        FullName = fullName;
+        PhoneNumber = phoneNumber;
+        BirthDate = birthDate;
+        UserName = Guid.NewGuid().ToString();
+        Email = email;
+    }
 
     public Gender Gender { get; private set; }
     public string? DeviceToken { get; private set; }
@@ -27,14 +39,15 @@ public class Student: User
     private readonly List<StudentLanguage> _selectedLanguages = new();
     public IReadOnlyCollection<StudentLanguage> SelectedLanguages => _selectedLanguages.AsReadOnly();
     
-    public void Modify(string fullName, DateTime? birthDate,
-        string email, string phoneNumber, Gender gender)
+    public void Modify(string fullName, DateTime? birthDate, string email, 
+        string phoneNumber, Gender gender, string imagUrl)
     {
         FullName = fullName;
         PhoneNumber = phoneNumber;
         BirthDate = birthDate;
         Email = email;
         Gender = gender;
+        ImagUrl = imagUrl;
     }
    
     public void SelectLanguage(Guid languageId)

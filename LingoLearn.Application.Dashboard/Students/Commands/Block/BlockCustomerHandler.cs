@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace LingoLearn.Application.Dashboard.Customers;
+namespace LingoLearn.Application.Dashboard.Students;
 
 public class BlockCustomerHandler : IRequestHandler<BlockCustomerCommand.Request, OperationResponse>
 {
@@ -18,11 +18,11 @@ public class BlockCustomerHandler : IRequestHandler<BlockCustomerCommand.Request
     public async Task<OperationResponse> HandleAsync(BlockCustomerCommand.Request request, 
         CancellationToken cancellationToken = new())
     {
-        var user = await _userRepository.TrackingQuery<Student>()
+        var student = await _userRepository.TrackingQuery<Student>()
             .Where(e => e.Id == request.Id)
             .FirstAsync(cancellationToken);
 
-        await _userRepository.ChangeBlockStatus<Student>(user.Id);
+        await _userRepository.ChangeBlockStatus<Student>(student.Id);
         await _userRepository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return OperationResponse.WithOk();
     }

@@ -2,7 +2,7 @@ using Domain.Repositories;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace LingoLearn.Application.Dashboard.Customers;
+namespace LingoLearn.Application.Dashboard.Students;
 
 public class GetStudentNamesHandler : IRequestHandler<GetStudentNamesQuery.Request,
     OperationResponse<List<GetStudentNamesQuery.Response>>>
