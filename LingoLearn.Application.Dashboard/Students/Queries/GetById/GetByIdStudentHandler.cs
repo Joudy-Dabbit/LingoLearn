@@ -1,5 +1,7 @@
 
+using Domain.Entities;
 using Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
@@ -17,5 +19,14 @@ public class GetByIdStudentHandler
 
     public async Task<OperationResponse<GetByIdStudentQuery.Response>> HandleAsync(GetByIdStudentQuery.Request request,
         CancellationToken cancellationToken = new())
-        => await _userRepository.GetAsync(request.Id, GetByIdStudentQuery.Response.Selector());
+    {
+        var student = await _userRepository.Query<Student>()
+            .Where(s => s.Id == request.Id)
+            .FirstOrDefaultAsync(cancellationToken);
+      
+      if(student is not { UtcDateDeleted: null })
+          return OperationResponse.WithBadRequest("student Not found").ToResponse<GetByIdStudentQuery.Response>();
+         
+      return await _userRepository.GetAsync(request.Id, GetByIdStudentQuery.Response.Selector());
+    } 
 }
