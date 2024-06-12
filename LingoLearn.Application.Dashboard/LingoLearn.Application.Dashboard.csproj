@@ -18,7 +18,6 @@
     <ItemGroup>
       <Folder Include="Settings\Commands\" />
       <Folder Include="Settings\Queries\" />
-      <Folder Include="Students\Commands\LogIn\" />
     </ItemGroup>
 
 </Project>

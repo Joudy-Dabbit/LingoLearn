@@ -16,71 +16,43 @@ public class DeleteRepository : Repository<Guid, LingoLearnDbContext>, IDeleteRe
         _fileService = fileService;
     }
 
-    // public async Task DeleteCity(List<Guid> ids)
-    // {
-    //     var cities = await TrackingQuery<City>()
-    //         .Include("Areas.AreaPrices2")
-    //         .Include("Areas.AreaPrices1")
-    //         .Where(c => ids.Contains(c.Id)).ToListAsync();
-    //
-    //     _deleteCity(cities);
-    //     await UnitOfWork.SaveChangesAsync();
-    // }
-    //
-    // public async Task DeleteShops(List<Guid> ids)
-    // {
-    //     var shops = await TrackingQuery<Shop>()
-    //         .Include(b => b.Products.Where(lb => !lb.UtcDateDeleted.HasValue))
-    //         .Include(b => b.WorkTimes.Where(lb => !lb.UtcDateDeleted.HasValue))
-    //         .Where(b => ids.Contains(b.Id)).ToListAsync();
-    //
-    //     _deleteShops(shops);
-    //     await UnitOfWork.SaveChangesAsync();
-    // }
-    // public async Task DeleteProducts(List<Guid> ids)
-    // {
-    //     var products = await TrackingQuery<Product>()
-    //         .Where(p => ids.Contains(p.Id)).ToListAsync();
-    //
-    //     _deleteProducts(products);
-    //     await UnitOfWork.SaveChangesAsync();
-    // }
-    //
-    // #region - private -
-    // private void _deleteCity(List<City> cities)
-    // {
-    //     var areas = cities.SelectMany(c => c.Areas).ToList();
-    //     _deleteAreas(areas);
-    //
-    //     SoftDelete(cities);
-    // }
-    // private void _deleteAreas(List<Area> areas)
-    // {
-    //     var areaPrices = areas.SelectMany(a => a.AreaPrices1).ToList();
-    //     areaPrices.AddRange(areas.SelectMany(a => a.AreaPrices2));
-    //
-    //     _deleteAreaPrices(areaPrices);
-    //     SoftDelete(areas);
-    // }
-    // private void _deleteAreaPrices(List<AreaPrice> areaPrices) => SoftDelete(areaPrices);
-    // private void _deleteShops(List<Shop> shops)
-    // {
-    //     var products = shops.SelectMany(b => b.Products).ToList();
-    //     var workTimes = shops.SelectMany(b => b.WorkTimes).ToList();
-    //     var images = shops.Select(b => b.ImageUrl).ToList();
-    //
-    //     _fileService.Delete(images);
-    //     _deleteProducts(products);
-    //     _deleteWorkTimes(workTimes);
-    //     SoftDelete(shops);
-    // }
-    // private void _deleteProducts(List<Product> products)
-    // {
-    //     var images = products.Select(b => b.ImageUrl).ToList();
-    //
-    //     _fileService.Delete(images);
-    //     SoftDelete(products);
-    // }
-    // private void _deleteWorkTimes(List<WorkTime> workTimes) => SoftDelete(workTimes);
-    // #endregion
+    public async Task DeleteLanguage(List<Guid> ids)
+    {
+        var languages = await TrackingQuery<Language>()
+            .Include("Levels")
+            .Include("Levels.Lessons")
+            .Include("Challenges")
+            .Where(c => ids.Contains(c.Id))
+            .ToListAsync();
+        
+        var images = languages.Select(b => b.ImageUrl).ToList();
+        _fileService.Delete(images);
+        
+        _deleteLevels(languages);
+        _deleteChallenges(languages);
+        SoftDelete(languages);
+        await UnitOfWork.SaveChangesAsync();
+    }
+    private void _deleteLevels(List<Language> languages)
+    {
+        var levels = languages.SelectMany(c => c.Levels).ToList();
+
+        _deleteLessons(levels);
+        SoftDelete(levels);
+    }   
+    
+    private void _deleteLessons(List<Level> levels)
+    {
+        var lessons = levels.SelectMany(c => c.Lessons).ToList();
+        var images = lessons.Select(b => b.FileUrl).ToList();
+
+        _fileService.Delete(images);
+        SoftDelete(lessons);
+    }   
+    
+    private void _deleteChallenges(List<Language> languages)
+    {
+        var challenges = languages.SelectMany(c => c.Challenges).ToList();
+        SoftDelete(challenges);
+    }
 }

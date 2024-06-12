@@ -16,7 +16,7 @@ public class AdminController: ApiController
     public AdminController(IRequestDispatcher dispatcher) : base(dispatcher) { }
           
     [AllowAnonymous]
-    [HttpPost,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
+    [HttpPost,LingoLearnRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(LogInAdminCommand.Response))]
     public async Task<IActionResult> LogIn(
         [FromServices] IRequestHandler<LogInAdminCommand.Request, OperationResponse<LogInAdminCommand.Response>> handler,

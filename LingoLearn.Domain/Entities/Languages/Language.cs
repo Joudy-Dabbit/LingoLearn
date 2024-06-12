@@ -26,4 +26,11 @@ public class Language : AggregateRoot
     
     private readonly List<Challenge> _challenges = new();
     public IReadOnlyCollection<Challenge> Challenges => _challenges.AsReadOnly();
+    
+    public void Modify(ProgrammingLang name, string description, string imageUrl)
+    {
+        Name = name;
+        Description = description;
+        ImageUrl = imageUrl;
+    }
 }
