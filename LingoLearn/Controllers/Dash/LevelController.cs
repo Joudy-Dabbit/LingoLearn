@@ -1,5 +1,5 @@
 using Domain.Enum;
-using LingoLearn.Application.Dashboard.Languages;
+using LingoLearn.Application.Dashboard.Levels;
 using LingoLearn.Util;
 using Microsoft.AspNetCore.Mvc;
 using Neptunee.BaseCleanArchitecture.Controllers;
@@ -11,60 +11,60 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace LingoLearn.Controllers.Dash;
 
-public class LanguageController : ApiController
+public class LevelController : ApiController
 {
-    public LanguageController(IRequestDispatcher dispatcher) : base(dispatcher) { }
+    public LevelController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     
   
     [AppAuthorize(LingoLearnRoles.Admin, LingoLearnRoles.Admin)]
     [HttpGet,LingoLearnRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
-    [ProducesResponseType(typeof(List<GetAllLanguagesQuery.Response>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<GetAllLevelsQuery.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(
-        [FromServices] IRequestHandler<GetAllLanguagesQuery.Request, 
-            OperationResponse<List<GetAllLanguagesQuery.Response>>> handler)
+        [FromServices] IRequestHandler<GetAllLevelsQuery.Request, 
+            OperationResponse<List<GetAllLevelsQuery.Response>>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync();    
     
     [AppAuthorize(LingoLearnRoles.Admin, LingoLearnRoles.Admin)]
     [HttpGet,LingoLearnRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
-    [ProducesResponseType(typeof(GetByIdLanguageQuery.Response), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetByIdLevelQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(
-        [FromServices] IRequestHandler<GetByIdLanguageQuery.Request, 
-            OperationResponse<GetByIdLanguageQuery.Response>> handler,
-        [FromQuery] GetByIdLanguageQuery.Request request)
+        [FromServices] IRequestHandler<GetByIdLevelQuery.Request, 
+            OperationResponse<GetByIdLevelQuery.Response>> handler,
+        [FromQuery] GetByIdLevelQuery.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
 
     [AppAuthorize(LingoLearnRoles.Admin, LingoLearnRoles.Admin)]
     [HttpGet,LingoLearnRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
-    [ProducesResponseType(typeof(List<GetLanguageNamesQuery.Response>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<GetLevelNamesQuery.Response>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetNames(
-        [FromServices] IRequestHandler<GetLanguageNamesQuery.Request, 
-            OperationResponse<List<GetLanguageNamesQuery.Response>>> handler)
+        [FromServices] IRequestHandler<GetLevelNamesQuery.Request, 
+            OperationResponse<List<GetLevelNamesQuery.Response>>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync();
     
         
     [AppAuthorize(LingoLearnRoles.Admin)]
     [HttpPost,LingoLearnRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
-    [ProducesResponseType(typeof(GetAllLanguagesQuery.Response), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetAllLevelsQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> Add(
-        [FromServices] IRequestHandler<AddLanguageCommand.Request,
-            OperationResponse<GetAllLanguagesQuery.Response>> handler,
-        [FromForm] AddLanguageCommand.Request request)
+        [FromServices] IRequestHandler<AddLevelCommand.Request,
+            OperationResponse<GetAllLevelsQuery.Response>> handler,
+        [FromForm] AddLevelCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
     [AppAuthorize(LingoLearnRoles.Admin)]
     [HttpPost,LingoLearnRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
-    [ProducesResponseType(typeof(GetByIdLanguageQuery.Response), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetByIdLevelQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> Modify(
-        [FromServices] IRequestHandler<ModifyLanguageCommand.Request,
-            OperationResponse<GetByIdLanguageQuery.Response>> handler,
-        [FromForm] ModifyLanguageCommand.Request request)
+        [FromServices] IRequestHandler<ModifyLevelCommand.Request,
+            OperationResponse<GetByIdLevelQuery.Response>> handler,
+        [FromForm] ModifyLevelCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
     
     [AppAuthorize(LingoLearnRoles.Admin)]
     [HttpDelete,LingoLearnRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(OperationResponse))]
     public async Task<IActionResult> Delete(
-        [FromServices] IRequestHandler<DeleteLanguageCommand.Request,
+        [FromServices] IRequestHandler<DeleteLevelCommand.Request,
             OperationResponse> handler,
         [FromQuery] Guid? id, [FromBody] List<Guid> ids)
         => await handler.HandleAsync(new(id, ids)).ToJsonResultAsync();

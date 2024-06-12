@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Levels\" />
       <Folder Include="Settings\Commands\" />
       <Folder Include="Settings\Queries\" />
     </ItemGroup>

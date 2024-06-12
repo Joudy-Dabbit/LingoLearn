@@ -33,6 +33,19 @@ public class DeleteRepository : Repository<Guid, LingoLearnDbContext>, IDeleteRe
         SoftDelete(languages);
         await UnitOfWork.SaveChangesAsync();
     }
+
+    public async Task DeleteLevels(List<Guid> ids)
+    {
+        var levels = await TrackingQuery<Level>()
+            .Include("Lessons")
+            .Where(c => ids.Contains(c.Id))
+            .ToListAsync();
+        
+        _deleteLessons(levels);
+        SoftDelete(levels);
+        await UnitOfWork.SaveChangesAsync();
+    }
+
     private void _deleteLevels(List<Language> languages)
     {
         var levels = languages.SelectMany(c => c.Levels).ToList();

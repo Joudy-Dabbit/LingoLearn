@@ -21,4 +21,11 @@ public class Level : AggregateRoot
     
     private readonly List<Lesson> _lessons = new();
     public IReadOnlyCollection<Lesson> Lessons => _lessons.AsReadOnly();    
+    
+    public void Modify(string name, string description, int order)
+    {
+        Name = name;
+        Description = description;
+        Order = order;
+    }
 }
