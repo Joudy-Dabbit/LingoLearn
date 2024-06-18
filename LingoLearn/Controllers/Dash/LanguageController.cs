@@ -22,6 +22,14 @@ public class LanguageController : ApiController
     public async Task<IActionResult> GetAll(
         [FromServices] IRequestHandler<GetAllLanguagesQuery.Request, 
             OperationResponse<List<GetAllLanguagesQuery.Response>>> handler)
+        => await handler.HandleAsync(new()).ToJsonResultAsync();      
+    
+    [AppAuthorize(LingoLearnRoles.Admin, LingoLearnRoles.Admin)]
+    [HttpGet,LingoLearnRoute(ApiGroupNames.Dashboard),ApiGroup(ApiGroupNames.Dashboard)]
+    [ProducesResponseType(typeof(List<GetAllAvailableLanguagesQuery.Response>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllAvailable(
+        [FromServices] IRequestHandler<GetAllAvailableLanguagesQuery.Request, 
+            OperationResponse<List<GetAllAvailableLanguagesQuery.Response>>> handler)
         => await handler.HandleAsync(new()).ToJsonResultAsync();    
     
     [AppAuthorize(LingoLearnRoles.Admin, LingoLearnRoles.Admin)]
