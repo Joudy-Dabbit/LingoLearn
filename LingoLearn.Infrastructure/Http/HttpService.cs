@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Domain.Enum;
 using Microsoft.AspNetCore.Http;
 using LingoLearn.Application.Dashboard.Core.Abstractions.Http;
 using LingoLearn.Application.Dashboard.Core.ExtensionMethods;
@@ -17,7 +18,7 @@ public class HttpService : IHttpService
     public Guid? CurrentUserId => _httpContextAccessor.HttpContext?.User?
         .FindFirst(ClaimTypes.NameIdentifier)?.Value?.StringToGuid();
 
-    public string? CurrentProgrammingLang
+    public ProgrammingLang? CurrentProgrammingLang
     {
         get
         {
@@ -26,7 +27,14 @@ public class HttpService : IHttpService
                 return null;
             }
 
-            return _httpContextAccessor.HttpContext!.Request.Headers["CurrentProgrammingLang"];
+            var currentLangString = _httpContextAccessor.HttpContext!.Request.Headers["CurrentProgrammingLang"].ToString();
+
+            if (Enum.TryParse<ProgrammingLang>(currentLangString, out var currentLang))
+            {
+                return currentLang;
+            }
+
+            return null; // أو يمكنك التعامل مع الحالة التي تكون فيها القيمة غير صالحة
         }
     }
 }

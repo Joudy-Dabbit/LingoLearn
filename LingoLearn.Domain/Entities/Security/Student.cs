@@ -37,7 +37,12 @@ public class Student: User
 
     
     private readonly List<StudentLanguage> _selectedLanguages = new();
-    public IReadOnlyCollection<StudentLanguage> SelectedLanguages => _selectedLanguages.AsReadOnly();
+    public IReadOnlyCollection<StudentLanguage> SelectedLanguages => _selectedLanguages.AsReadOnly();    
+    
+    
+    private readonly List<StudentLesson> _studentLessons = new();
+    public IReadOnlyCollection<StudentLesson> StudentLessons => _studentLessons.AsReadOnly();
+    
     
     public void Modify(string fullName, DateTime? birthDate, string email, 
         string phoneNumber, Gender gender, string imagUrl)

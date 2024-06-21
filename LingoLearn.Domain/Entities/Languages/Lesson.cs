@@ -26,7 +26,9 @@ public class Lesson : AggregateRoot
     public Guid LevelId { get; private set; }
     public Level Level { get; private set; }
     
-        
+    private readonly List<StudentLesson> _participants = new();
+    public IReadOnlyCollection<StudentLesson> Participants => _participants.AsReadOnly();
+    
     public void Modify(string name, string description,
         string? fileUrl, int order, string? text)
     {

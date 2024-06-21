@@ -81,6 +81,7 @@ public class LingoLearnDbContext : BaseIdentityDbContext<Guid,User>, ILingoLearn
     public DbSet<Comment> Comments => Set<Comment>();
     public DbSet<Reply> Replies => Set<Reply>();
     public DbSet<StudentLanguage> StudentLanguages => Set<StudentLanguage>();
+    public DbSet<StudentLesson> StudentLessons => Set<StudentLesson>();
     #endregion
 
     #region -Notifications-

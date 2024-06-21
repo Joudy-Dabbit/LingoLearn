@@ -1,7 +1,9 @@
+using Domain.Enum;
+
 namespace LingoLearn.Application.Dashboard.Core.Abstractions.Http;
 
 public interface IHttpService
 {
     Guid? CurrentUserId { get; }
-    string? CurrentProgrammingLang { get; }
+    ProgrammingLang? CurrentProgrammingLang { get; }
 }
