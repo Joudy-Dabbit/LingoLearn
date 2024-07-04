@@ -19,6 +19,7 @@
       <Folder Include="Certificates\" />
       <Folder Include="Lessons\" />
       <Folder Include="Levels\" />
+      <Folder Include="QuestionsBank\" />
       <Folder Include="Settings\Commands\" />
       <Folder Include="Settings\Queries\" />
     </ItemGroup>

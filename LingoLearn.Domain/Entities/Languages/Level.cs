@@ -22,6 +22,10 @@ public class Level : AggregateRoot
     private readonly List<Lesson> _lessons = new();
     public IReadOnlyCollection<Lesson> Lessons => _lessons.AsReadOnly();    
     
+    
+    private readonly List<Question> _questions = new();
+    public IReadOnlyCollection<Question> Questions => _questions.AsReadOnly();
+    
     public void Modify(string name, string description, int order)
     {
         Name = name;
