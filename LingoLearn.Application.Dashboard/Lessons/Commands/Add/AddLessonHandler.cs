@@ -38,4 +38,5 @@ public class AddLessonHandler : IRequestHandler<AddLessonCommand.Request,
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         
         return await _repository.GetAsync(lesson.Id, GetAllLessonsQuery.Response.Selector);    
-    }}
+    }
+}
