@@ -20,6 +20,7 @@ public class GetByIdLessonQuery
         public int Order { get; set; }
         public string Description { get; set; }
         public string? FileUrl { get; set; }
+        public string? CoverImageUrl { get; set; }
         public LessonType Type { get; set; }
         public Guid LevelId { get; private set; }
         public string? Text { get; set; }
@@ -34,6 +35,7 @@ public class GetByIdLessonQuery
                 Type = l.Type,
                 Order = l.Order,
                 FileUrl = l.FileUrl,
+                CoverImageUrl = l.CoverImageUrl,
                 Text = l.Text
             };
     }

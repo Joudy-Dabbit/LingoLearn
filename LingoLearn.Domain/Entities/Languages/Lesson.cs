@@ -4,8 +4,9 @@ namespace Domain.Entities;
 
 public class Lesson : AggregateRoot
 {
-    public Lesson(string name, string description, Guid levelId,
-        LessonType type, string? fileUrl, int order, string? text)
+    public Lesson(string name, string description, 
+        Guid levelId, LessonType type, string? fileUrl, 
+        int order, string? text, string? coverImageUrl)
     {
         Name = name;
         Description = description;
@@ -14,6 +15,7 @@ public class Lesson : AggregateRoot
         FileUrl = fileUrl;
         Order = order;
         Text = text;
+        CoverImageUrl = coverImageUrl;
     }
 
     public string Name { get; set; }
@@ -21,6 +23,7 @@ public class Lesson : AggregateRoot
     public int Order { get; set; }
     public string Description { get; set; }
     public string? FileUrl { get; set; }
+    public string? CoverImageUrl { get; set; }
     public LessonType Type { get; set; }
 
     public Guid LevelId { get; private set; }
@@ -30,12 +33,13 @@ public class Lesson : AggregateRoot
     public IReadOnlyCollection<StudentLesson> Participants => _participants.AsReadOnly();
     
     public void Modify(string name, string description,
-        string? fileUrl, int order, string? text)
+        string? fileUrl, int order, string? text, string? coverImageUrl)
     {
         Name = name;
         Description = description;
         FileUrl = fileUrl;
         Order = order;
         Text = text;
+        CoverImageUrl = coverImageUrl;
     }
 }

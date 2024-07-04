@@ -14,6 +14,7 @@ public class AddLessonCommand
         public int Order { get; set; }
         public string Description { get; set; }
         public IFormFile? FileUrl { get; set; }
+        public IFormFile? CoverImageUrl { get; set; }
         public LessonType Type { get; set; }
         public Guid LevelId { get; set; }
     }

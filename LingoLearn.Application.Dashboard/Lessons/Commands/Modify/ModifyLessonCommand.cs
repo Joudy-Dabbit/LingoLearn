@@ -15,5 +15,6 @@ public class ModifyLessonCommand
         public string? Text { get; set; }
         public string Description { get; set; }
         public IFormFile? FileUrl { get; set; }
+        public IFormFile? CoverImageUrl { get; set; }
     }
 }

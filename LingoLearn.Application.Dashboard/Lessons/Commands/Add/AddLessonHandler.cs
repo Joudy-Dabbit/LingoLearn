@@ -32,8 +32,9 @@ public class AddLessonHandler : IRequestHandler<AddLessonCommand.Request,
                 .ToResponse<GetAllLessonsQuery.Response>();
         
         var imageUrl = await _fileService.Upload(request.FileUrl);
+        var coverImageUrl = await _fileService.Upload(request.CoverImageUrl);
         var lesson = new Lesson(request.Name, request.Description, request.LevelId,
-            request.Type, imageUrl ?? "", request.Order, request.Text);
+            request.Type, imageUrl ?? "", request.Order, request.Text, coverImageUrl ?? "");
         _repository.Add(lesson);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         

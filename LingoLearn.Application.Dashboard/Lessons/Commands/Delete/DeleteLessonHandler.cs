@@ -26,8 +26,13 @@ public class DeleteLessonHandler : IRequestHandler<DeleteLessonCommand.Request, 
         
         var files = lessons.Select(b => b.FileUrl).ToList();
         _fileService.Delete(files);
+        
+        var covers = lessons.Select(b => b.CoverImageUrl).ToList();
+        _fileService.Delete(covers);
+        
         _repository.SoftDelete(lessons);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
+        
         return OperationResponse.WithOk();
     }
 }
