@@ -3,11 +3,10 @@ namespace Domain.Entities;
 public class Reply: AggregateRoot
 
 {
-    public Reply(string text, Guid userId, Guid lessonId, Guid commentId)
+    public Reply(string text, Guid studentId, Guid commentId)
     {
         Text = text;
-        UserId = userId;
-        LessonId = lessonId;
+        StudentId = studentId;
         CommentId = commentId;
     }
 
@@ -16,9 +15,6 @@ public class Reply: AggregateRoot
     public Guid CommentId { get; private set; }
     public Comment Comment { get; private set; }    
     
-    public Guid UserId { get; private set; }
-    public User User { get; private set; }    
-    
-    public Guid LessonId { get; private set; }
-    public Lesson Lesson { get; private set; }
+    public Guid StudentId { get; private set; }
+    public Student Student { get; private set; }    
 }

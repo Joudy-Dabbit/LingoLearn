@@ -11,7 +11,7 @@ using Neptunee.BaseCleanArchitecture.SwaggerApi.Attributes;
 
 namespace LingoLearn.Controllers.Mobile;
 
-public class HomeController: ApiController
+public class HomeController : ApiController
 {
     public HomeController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     

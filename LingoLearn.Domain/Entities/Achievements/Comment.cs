@@ -3,17 +3,17 @@ namespace Domain.Entities;
 public class Comment : AggregateRoot
 
 {
-    public Comment(string text, Guid userId, Guid lessonId)
+    public Comment(string text, Guid studentId, Guid lessonId)
     {
         Text = text;
-        UserId = userId;
+        StudentId = studentId;
         LessonId = lessonId;
     }
 
     public string Text { get; set; }
     
-    public Guid UserId { get; private set; }
-    public User User { get; private set; }    
+    public Guid StudentId { get; private set; }
+    public Student Student { get; private set; }    
     
     public Guid LessonId { get; private set; }
     public Lesson Lesson { get; private set; }
