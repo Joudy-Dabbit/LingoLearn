@@ -5,7 +5,7 @@ using Neptunee.BaseCleanArchitecture.Requests;
 
 namespace LingoLearn.Application.Mobile.Replies;
 
-public class GetAllRepliesHandler: IRequestHandler<GetAllRepliesQuery.Request,
+public class GetAllRepliesHandler : IRequestHandler<GetAllRepliesQuery.Request,
     OperationResponse<List<GetAllRepliesQuery.Response>>>
 {
     private readonly IUserRepository _repository;

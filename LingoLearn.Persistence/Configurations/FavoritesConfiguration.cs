@@ -8,9 +8,9 @@ public class FavoritesConfiguration : IEntityTypeConfiguration<FavoriteLesson>
 {
     public void Configure(EntityTypeBuilder<FavoriteLesson> builder)
     {
-        builder.HasOne(x => x.User)
+        builder.HasOne(x => x.Student)
                .WithMany()
-               .HasForeignKey(x => x.UserId)
+               .HasForeignKey(x => x.StudentId)
                .OnDelete(DeleteBehavior.Cascade); 
         
         builder.HasOne(x => x.Lesson)
