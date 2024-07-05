@@ -11,7 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace LingoLearn.Controllers.Dash;
 
-public class QuestionsBankController: ApiController
+public class QuestionsBankController : ApiController
 {
     public QuestionsBankController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     

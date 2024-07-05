@@ -20,6 +20,7 @@
       <Folder Include="Achievements\Commands\" />
       <Folder Include="Achievements\Queries\" />
       <Folder Include="Levels\" />
+      <Folder Include="QuestionsBank\Commands\" />
       <Folder Include="Replies\Commands\" />
     </ItemGroup>
 
