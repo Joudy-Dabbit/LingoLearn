@@ -36,7 +36,7 @@ public class GetByIdLanguageQuery
             public int Order { get; set; }
             public string Description { get; set; }
             public string? FileUrl { get; set; }
-            public LessonType Type { get; set; }
+            public int Type { get; set; }
         }
         
         public static Expression<Func<Language, Response>> Selector => l
@@ -58,7 +58,7 @@ public class GetByIdLanguageQuery
                         Name = le.Name,
                         Description = le.Description,
                         Order = le.Order,
-                        Type = le.Type,
+                        Type = (int)le.Type,
                         FileUrl = le.FileUrl
                     }).ToList()
                 }).ToList()

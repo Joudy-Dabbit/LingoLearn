@@ -19,6 +19,7 @@ public class GetByIdLevelQuery
         public string Name { get; set; }
         public string Description { get; set; }
         public Guid LanguageId { get; set; }
+        public int Order { get; set; }
         public List<LessonsRes> Lessons { get; set; }
         
         public class LessonsRes
@@ -28,7 +29,7 @@ public class GetByIdLevelQuery
             public int Order { get; set; }
             public string Description { get; set; }
             public string? FileUrl { get; set; }
-            public LessonType Type { get; set; }
+            public int Type { get; set; }
         }
         
         public static Expression<Func<Level, Response>> Selector => l
@@ -37,6 +38,7 @@ public class GetByIdLevelQuery
                 Id = l.Id,
                 Name = l.Name.ToString(),
                 Description = l.Description,
+                Order = l.Order,
                 LanguageId = l.LanguageId,
                 Lessons = l.Lessons.Select(le => new LessonsRes()
                 {
@@ -44,7 +46,7 @@ public class GetByIdLevelQuery
                         Name = le.Name,
                         Description = le.Description,
                         Order = le.Order,
-                        Type = le.Type,
+                        Type = (int)le.Type,
                         FileUrl = le.FileUrl
                 }).ToList()
             };

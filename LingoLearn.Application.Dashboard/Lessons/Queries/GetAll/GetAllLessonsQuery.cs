@@ -21,7 +21,8 @@ public class GetAllLessonsQuery
         public int Order { get; set; }
         public string Description { get; set; }
         public string? FileUrl { get; set; }
-        public LessonType Type { get; set; }
+        public string? CoverImageUrl { get; set; }
+        public int Type { get; set; }
         public Guid LevelId { get; set; }
 
         public static Expression<Func<Lesson, Response>> Selector => l
@@ -31,9 +32,10 @@ public class GetAllLessonsQuery
                 Name = l.Name,
                 Description = l.Description,
                 LevelId = l.LevelId,
-                Type = l.Type,
+                Type = (int)l.Type,
                 Order = l.Order,
                 FileUrl = l.FileUrl,
+                CoverImageUrl = l.CoverImageUrl,
                 Text = l.Text
             };
     }
