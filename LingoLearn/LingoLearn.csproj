@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\LingoLearn.Application.Mobile\LingoLearn.Application.Mobile.csproj" />
+      <ProjectReference Include="..\LingoLearn.Application.Website\LingoLearn.Application.Website.csproj" />
       <ProjectReference Include="..\LingoLearn.Infrastructure\LingoLearn.Infrastructure.csproj" />
       <ProjectReference Include="..\LingoLearn.Persistence\LingoLearn.Persistence.csproj" />
     </ItemGroup>

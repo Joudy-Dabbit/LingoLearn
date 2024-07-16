@@ -1,16 +1,15 @@
 using Domain.Repositories;
-using LingoLearn.Application.Dashboard.Core.Abstractions.Http;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace LingoLearn.Application.Dashboard.Lessons;
+namespace LingoLearn.Application.Website.Lessons;
 
-public class GetAllLessonsHandler : IRequestHandler<GetAllLessonsQuery.Request,
+public class GetAllLessonsHandler: IRequestHandler<GetAllLessonsQuery.Request,
     OperationResponse<List<GetAllLessonsQuery.Response>>>
 {
-    private readonly IUserRepository _repository;
+    private readonly ILingoLearnRepository _repository;
 
-    public GetAllLessonsHandler(IUserRepository repository)
+    public GetAllLessonsHandler(ILingoLearnRepository repository)
     {
         _repository = repository;
     }
