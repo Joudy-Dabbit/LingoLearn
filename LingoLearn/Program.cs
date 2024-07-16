@@ -38,6 +38,7 @@ builder.Services
     .AddBaseCleanArchitecture(
         LingoLearn.Application.Dashboard.AssemblyReference.Assembly,
         LingoLearn.Application.Mobile.AssemblyReference.Assembly,
+        LingoLearn.Application.Website.AssemblyReference.Assembly,
         LingoLearn.Persistence.AssemblyReference.Assembly);
 
 builder.Services.AddEndpointsApiExplorer();
