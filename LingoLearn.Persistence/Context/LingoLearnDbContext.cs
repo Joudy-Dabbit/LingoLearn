@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using Domain.Entities;
+using Domain.Entities.General;
 using EasyRefreshToken.Models;
 using LingoLearn.Application.Dashboard.Core.Abstractions;
 using Microsoft.EntityFrameworkCore;
@@ -92,5 +93,9 @@ public class LingoLearnDbContext : BaseIdentityDbContext<Guid,User>, ILingoLearn
     #region -Favorites-
     public DbSet<FavoriteLanguage> FavoriteLanguages => Set<FavoriteLanguage>();
     public DbSet<FavoriteLesson> FavoriteLessons => Set<FavoriteLesson>();
+    #endregion
+
+    #region - General -
+    public DbSet<ContactUs> ContactsUs => Set<ContactUs>();
     #endregion
 }
