@@ -64,10 +64,6 @@ public class LingoLearnDbContext : BaseIdentityDbContext<Guid,User>, ILingoLearn
     public DbSet<Admin> Admins => Set<Admin>();
     public DbSet<RefreshToken<User, Guid>> RefreshTokens { get; set; }
     #endregion
-     
-    #region -Settings-
-    public DbSet<Advertisement> Advertisements => Set<Advertisement>();
-    #endregion
         
     #region -Languages-
     public DbSet<Language> Languages => Set<Language>();
@@ -97,5 +93,6 @@ public class LingoLearnDbContext : BaseIdentityDbContext<Guid,User>, ILingoLearn
 
     #region - General -
     public DbSet<ContactUs> ContactsUs => Set<ContactUs>();
+    public DbSet<Advertisement> Advertisements => Set<Advertisement>();
     #endregion
 }

@@ -4,7 +4,7 @@ using Neptunee.BaseCleanArchitecture.Requests;
 
 namespace LingoLearn.Application.Website.Languages;
 
-public class GetAllLanguagesHandler: IRequestHandler<GetAllLanguagesQuery.Request,
+public class GetAllLanguagesHandler : IRequestHandler<GetAllLanguagesQuery.Request,
     OperationResponse<List<GetAllLanguagesQuery.Response>>>
 {
     private readonly IUserRepository _repository;

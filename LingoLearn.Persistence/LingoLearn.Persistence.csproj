@@ -25,6 +25,8 @@
       <Compile Remove="Migrations\20230602133901_Initial.cs" />
       <Compile Remove="Migrations\20230602133901_Initial.Designer.cs" />
       <Compile Remove="Migrations\20240716120716_ContactUs.Designer.cs" />
+      <Compile Remove="Migrations\20240716125149_Add_Advertisements.cs" />
+      <Compile Remove="Migrations\20240716125149_Add_Advertisements.Designer.cs" />
     </ItemGroup>
 
 </Project>

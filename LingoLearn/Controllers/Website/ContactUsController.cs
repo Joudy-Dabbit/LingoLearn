@@ -9,7 +9,7 @@ using Neptunee.BaseCleanArchitecture.SwaggerApi.Attributes;
 
 namespace LingoLearn.Controllers.Website;
 
-public class ContactUsController: ApiController
+public class ContactUsController : ApiController
 {
     public ContactUsController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     

@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Domain;
 using Domain.Entities;
+using Domain.Entities.General;
 using Domain.Enum;
 using LingoLearn.Persistence.Context;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +20,7 @@ public static class DataSeed
          await SeedRole(roleManager, context);
          await SeedAdmin(userManager, context);
          await SeedLanguages(context);
-         // await SeedVehicleTypes(context);
+         await SeedAdvertisements(context);
          // await SeedCategories(context);
          // await SeedShops(context);
          // await SeedVehicles(context);
@@ -74,20 +75,18 @@ public static class DataSeed
          await context.SaveChangesAsync();
      }
      
-//     private static async Task SeedShops(LingoLearnDbContext context)
-//     {
-//         if (context.Shops.Any())
-//         {
-//             return;
-//         }
-//
-//         var categoryId = context.Categories.First(c => !c.UtcDateDeleted.HasValue).Id;
-//         var areaId = context.Areas.First(c => !c.UtcDateDeleted.HasValue).Id;
-//         var shop = new Shop("القبطان", AddImage(), categoryId, areaId);
-//         context.Add(shop);
-//         shop.AddProduct("سمك مشوي", AddImage(), 5000, true);
-//         await context.SaveChangesAsync();
-//     }
+     private static async Task SeedAdvertisements(LingoLearnDbContext context)
+     {
+         if (context.Advertisements.Any())
+         {
+             return;
+         }
+         
+         var shop = new Advertisement("new Advertisement", "Hello in our Advertisement!", AddImage(), true);
+         context.Add(shop);
+         await context.SaveChangesAsync();
+     }
+     
 //     private static async Task SeedVehicleTypes(LingoLearnDbContext context)
 //     {
 //         if (context.VehicleTypes.Any())

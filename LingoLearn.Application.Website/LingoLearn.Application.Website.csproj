@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Advertisements\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="Neptunee.BaseCleanArchitecture" Version="1.0.0-preview.1.6" />
     </ItemGroup>
 
