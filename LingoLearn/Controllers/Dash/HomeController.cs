@@ -10,7 +10,7 @@ using LingoLearn.Application.Dashboard;
 
 namespace LingoLearn.Controllers.Dash;
 
-public class HomeController: ApiController
+public class HomeController : ApiController
 {
     public HomeController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     

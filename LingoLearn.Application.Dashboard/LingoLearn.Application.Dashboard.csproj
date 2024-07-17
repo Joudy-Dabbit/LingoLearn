@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Advertisements\" />
       <Folder Include="Certificates\" />
       <Folder Include="Lessons\" />
       <Folder Include="Levels\" />
