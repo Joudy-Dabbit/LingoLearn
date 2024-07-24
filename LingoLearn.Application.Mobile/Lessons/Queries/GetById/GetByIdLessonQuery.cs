@@ -24,8 +24,9 @@ public class GetByIdLessonQuery
         public LessonType Type { get; set; }
         public Guid LevelId { get; private set; }
         public string? Text { get; set; }
+        public bool IsFavorite { get; set; }
 
-        public static Expression<Func<Lesson, Response>> Selector => l
+        public static Expression<Func<Lesson, Response>> Selector(Guid studentId) => l
             => new()
             {
                 Id = l.Id,
@@ -36,7 +37,8 @@ public class GetByIdLessonQuery
                 Order = l.Order,
                 FileUrl = l.FileUrl,
                 CoverImageUrl = l.CoverImageUrl,
-                Text = l.Text
+                Text = l.Text,
+                IsFavorite = l.Favorites.Any(f => f.StudentId == studentId)
             };
     }
 }

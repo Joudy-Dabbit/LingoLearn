@@ -30,7 +30,11 @@ public class Lesson : AggregateRoot
     public Level Level { get; private set; }
     
     private readonly List<StudentLesson> _participants = new();
-    public IReadOnlyCollection<StudentLesson> Participants => _participants.AsReadOnly();
+    public IReadOnlyCollection<StudentLesson> Participants => _participants.AsReadOnly();    
+    
+    
+    private readonly List<FavoriteLesson> _favorites = new();
+    public IReadOnlyCollection<FavoriteLesson> Favorites => _favorites.AsReadOnly();
     
     public void Modify(string name, string description,
         string? fileUrl, int order, string? text, string? coverImageUrl)

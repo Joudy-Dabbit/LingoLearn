@@ -4,6 +4,7 @@ using LingoLearn.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LingoLearn.Persistence.Migrations
 {
     [DbContext(typeof(LingoLearnDbContext))]
-    partial class LingoLearnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240724222145_add_Favorites_in_FavoritesLesson")]
+    partial class add_Favorites_in_FavoritesLesson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,7 +56,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answer", (string)null);
+                    b.ToTable("Answer");
                 });
 
             modelBuilder.Entity("Domain.Entities.Certificate", b =>
@@ -89,7 +92,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("Certificates", (string)null);
+                    b.ToTable("Certificates");
                 });
 
             modelBuilder.Entity("Domain.Entities.Challenge", b =>
@@ -121,7 +124,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("Challenges", (string)null);
+                    b.ToTable("Challenges");
                 });
 
             modelBuilder.Entity("Domain.Entities.ChallengeParticipant", b =>
@@ -150,7 +153,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ChallengeParticipants", (string)null);
+                    b.ToTable("ChallengeParticipants");
                 });
 
             modelBuilder.Entity("Domain.Entities.Comment", b =>
@@ -183,7 +186,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Domain.Entities.FavoriteLanguage", b =>
@@ -212,7 +215,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FavoriteLanguages", (string)null);
+                    b.ToTable("FavoriteLanguages");
                 });
 
             modelBuilder.Entity("Domain.Entities.FavoriteLesson", b =>
@@ -246,7 +249,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("FavoriteLessons", (string)null);
+                    b.ToTable("FavoriteLessons");
                 });
 
             modelBuilder.Entity("Domain.Entities.General.Advertisement", b =>
@@ -280,7 +283,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Advertisements", (string)null);
+                    b.ToTable("Advertisements");
                 });
 
             modelBuilder.Entity("Domain.Entities.General.ContactUs", b =>
@@ -316,7 +319,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ContactsUs", (string)null);
+                    b.ToTable("ContactsUs");
                 });
 
             modelBuilder.Entity("Domain.Entities.Language", b =>
@@ -349,7 +352,7 @@ namespace LingoLearn.Persistence.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Languages", (string)null);
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("Domain.Entities.Lesson", b =>
@@ -396,7 +399,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("Lessons", (string)null);
+                    b.ToTable("Lessons");
                 });
 
             modelBuilder.Entity("Domain.Entities.Level", b =>
@@ -431,7 +434,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("Levels", (string)null);
+                    b.ToTable("Levels");
                 });
 
             modelBuilder.Entity("Domain.Entities.Notification", b =>
@@ -462,7 +465,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Notifications", (string)null);
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Domain.Entities.Question", b =>
@@ -493,7 +496,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("LevelId");
 
-                    b.ToTable("Question", (string)null);
+                    b.ToTable("Question");
                 });
 
             modelBuilder.Entity("Domain.Entities.Reply", b =>
@@ -526,7 +529,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Replies", (string)null);
+                    b.ToTable("Replies");
                 });
 
             modelBuilder.Entity("Domain.Entities.StudentLanguage", b =>
@@ -555,7 +558,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentLanguages", (string)null);
+                    b.ToTable("StudentLanguages");
                 });
 
             modelBuilder.Entity("Domain.Entities.StudentLesson", b =>
@@ -584,7 +587,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentLessons", (string)null);
+                    b.ToTable("StudentLessons");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
@@ -705,7 +708,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserNotifications", (string)null);
+                    b.ToTable("UserNotifications");
                 });
 
             modelBuilder.Entity("EasyRefreshToken.Models.RefreshToken<Domain.Entities.User, System.Guid>", b =>
@@ -727,7 +730,7 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshTokens", (string)null);
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
