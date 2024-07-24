@@ -3,7 +3,7 @@ using LingoLearn.Application.Dashboard.Core.Abstractions.Http;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace LingoLearn.Application.Mobile.QuestionsBank;
+namespace LingoLearn.Application.Mobile.QuestionsBanks;
 
 public class GetAllQuestionsBankHandler : IRequestHandler<GetAllQuestionsBankQuery.Request,
     OperationResponse<List<GetAllQuestionsBankQuery.Response>>>

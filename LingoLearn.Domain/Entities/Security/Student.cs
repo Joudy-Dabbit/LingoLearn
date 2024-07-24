@@ -34,6 +34,7 @@ public class Student: User
     public Gender Gender { get; private set; }
     public string? DeviceToken { get; private set; }
     public string ImagUrl { get; private set; }
+    public int Score { get; private set; }
 
     
     private readonly List<StudentLanguage> _selectedLanguages = new();
@@ -60,4 +61,6 @@ public class Student: User
         var studentLanguage = new StudentLanguage(Id, languageId);
         _selectedLanguages.Add(studentLanguage);
     }
+
+    public void AddScore(int score) => Score += score;
 }

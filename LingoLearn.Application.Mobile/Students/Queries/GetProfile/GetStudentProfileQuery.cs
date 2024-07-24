@@ -21,6 +21,7 @@ public class GetStudentProfileQuery
         public string ImagUrl { get; set; }
         public DateTime? BirthDate { get; set; }
         public Gender Gender { get;  set; }
+        public int TotalScore { get; set; }
 
         public static Expression<Func<Student, Response>> Selector() => c
             => new()
@@ -31,7 +32,8 @@ public class GetStudentProfileQuery
                 PhoneNumber = c.PhoneNumber,
                 Email = c.Email,
                 Gender = c.Gender,
-                ImagUrl = c.ImagUrl
+                ImagUrl = c.ImagUrl,
+                TotalScore = c.Score
             };
     }
 }

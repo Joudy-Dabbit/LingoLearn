@@ -1,5 +1,5 @@
 using Domain.Enum;
-using LingoLearn.Application.Mobile.QuestionsBank;
+using LingoLearn.Application.Mobile.QuestionsBanks;
 using LingoLearn.Util;
 using Microsoft.AspNetCore.Mvc;
 using Neptunee.BaseCleanArchitecture.Controllers;
@@ -23,4 +23,13 @@ public class QuestionsBankController: ApiController
             OperationResponse<List<GetAllQuestionsBankQuery.Response>>> handler,
         [FromQuery] GetAllQuestionsBankQuery.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();    
+    
+        
+    [AppAuthorize(LingoLearnRoles.Student, LingoLearnRoles.Student)]
+    [HttpPost,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(OperationResponse), StatusCodes.Status200OK)]
+    public async Task<IActionResult> SaveQuestionsScore(    
+        [FromServices] IRequestHandler<SaveQuestionsScoreCommand.Request, OperationResponse> handler,
+        [FromBody] SaveQuestionsScoreCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync(); 
 }

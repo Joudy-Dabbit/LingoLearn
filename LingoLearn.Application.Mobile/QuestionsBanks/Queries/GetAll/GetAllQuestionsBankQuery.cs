@@ -3,7 +3,7 @@ using Domain.Entities;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
-namespace LingoLearn.Application.Mobile.QuestionsBank;
+namespace LingoLearn.Application.Mobile.QuestionsBanks;
 
 public class GetAllQuestionsBankQuery
 {
