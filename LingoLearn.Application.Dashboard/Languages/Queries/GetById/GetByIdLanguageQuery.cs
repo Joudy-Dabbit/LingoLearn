@@ -36,6 +36,7 @@ public class GetByIdLanguageQuery
             public int Order { get; set; }
             public string Description { get; set; }
             public string? FileUrl { get; set; }
+            public string? CoverImageUrl { get; set; }
             public int Type { get; set; }
         }
         
@@ -59,7 +60,8 @@ public class GetByIdLanguageQuery
                         Description = le.Description,
                         Order = le.Order,
                         Type = (int)le.Type,
-                        FileUrl = le.FileUrl
+                        FileUrl = le.FileUrl,
+                        CoverImageUrl = le.CoverImageUrl
                     }).ToList()
                 }).ToList()
             };
