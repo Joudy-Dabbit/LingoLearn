@@ -16,5 +16,5 @@ public class GetLevelNamesHandler: IRequestHandler<GetLevelNamesQuery.Request,
 
     public async Task<OperationResponse<List<GetLevelNamesQuery.Response>>> HandleAsync(GetLevelNamesQuery.Request request, 
         CancellationToken cancellationToken = new())
-        => await _repository.GetAsync(GetLevelNamesQuery.Response.Selector);
+        => await _repository.GetAsync(GetLevelNamesQuery.Response.Selector, "Language");
 }

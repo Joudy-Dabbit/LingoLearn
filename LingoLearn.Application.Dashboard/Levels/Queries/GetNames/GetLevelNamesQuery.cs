@@ -21,7 +21,7 @@ public class GetLevelNamesQuery
             => new()
             {
                 Id = l.Id,
-                Name = l.Name.ToString(),
+                Name = $"{l.Language.Name}-{l.Name.ToString()}",
             };
     }
 }
