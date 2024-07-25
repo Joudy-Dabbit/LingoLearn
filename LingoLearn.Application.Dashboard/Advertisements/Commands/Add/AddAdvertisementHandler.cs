@@ -25,17 +25,19 @@ public class AddAdvertisementHandler : IRequestHandler<AddAdvertisementCommand.R
         CancellationToken cancellationToken = new())
     {
         var imagesUrl = "";
+        var counter = 1;
         foreach (var file in request.ImagesFile)
         {
             var imageUrl = await _fileService.Upload(file);
-            imagesUrl = imagesUrl + "," + imageUrl;
+            imagesUrl = counter == 1 ? imagesUrl + imageUrl : imagesUrl + "|*|" + imageUrl ;
+            counter++;
         }
-        var question = new Advertisement(request.Title, request.Description, 
+        var advertisement = new Advertisement(request.Title, request.Description, 
             imagesUrl ,request.ShowInWebsite, request.CompanyName, request.Price);
         
-        _repository.Add(question);
+        _repository.Add(advertisement);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         
-        return await _repository.GetAsync(question.Id, GetAllAdvertisementsQuery.Response.Selector);    
+        return await _repository.GetAsync(advertisement.Id, GetAllAdvertisementsQuery.Response.Selector);    
     }
 }

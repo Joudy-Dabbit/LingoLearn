@@ -30,10 +30,12 @@ public class ModifyAdvertisementHandler: IRequestHandler<ModifyAdvertisementComm
 
         _fileService.Delete(advertisement.ImagesUrl.Split(',').ToList());
         var imagesUrl = "";
+        var counter = 1;
         foreach (var file in request.ImagesFile)
         {
-          var imageUrl = await _fileService.Upload(file);
-          imagesUrl = imagesUrl + "," + imageUrl;
+            var imageUrl = await _fileService.Upload(file);
+            imagesUrl = counter == 1 ? imagesUrl + imageUrl : imagesUrl + "|*|" + imageUrl ;
+            counter++;
         }
         advertisement.Modify(request.Title, request.Description, imagesUrl,
             request.ShowInWebsite, request.CompanyName, request.Price);
