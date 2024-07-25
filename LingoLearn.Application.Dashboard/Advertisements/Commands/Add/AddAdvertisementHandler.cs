@@ -25,7 +25,8 @@ public class AddAdvertisementHandler : IRequestHandler<AddAdvertisementCommand.R
         CancellationToken cancellationToken = new())
     {
         var imageUrl = await _fileService.Upload(request.ImageFile);
-        var question = new Advertisement(request.Title, request.Description, imageUrl ?? "" ,request.ShowInWebsite);
+        var question = new Advertisement(request.Title, request.Description, 
+            imageUrl ,request.ShowInWebsite, request.CompanyName, request.Price);
         
         _repository.Add(question);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);

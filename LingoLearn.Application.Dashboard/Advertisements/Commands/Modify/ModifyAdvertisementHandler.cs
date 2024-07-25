@@ -28,8 +28,9 @@ public class ModifyAdvertisementHandler: IRequestHandler<ModifyAdvertisementComm
         if (advertisement is not { UtcDateDeleted: null })
             return OperationResponse.WithBadRequest("Advertisement Not found").ToResponse<GetByIdAdvertisementQuery.Response>();
 
-        var imageUrl = await _fileService.Modify(advertisement.ImageUrl, request.ImageFile);
-        advertisement.Modify(request.Title, request.Description, imageUrl ?? "", request.ShowInWebsite);
+        var imageUrl = await _fileService.Modify(advertisement.ImagesUrl, request.ImageFile, advertisement.ImagesUrl);
+        advertisement.Modify(request.Title, request.Description, imageUrl,
+            request.ShowInWebsite, request.CompanyName, request.Price);
         
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return await _repository.GetAsync(advertisement.Id, GetByIdAdvertisementQuery.Response.Selector);

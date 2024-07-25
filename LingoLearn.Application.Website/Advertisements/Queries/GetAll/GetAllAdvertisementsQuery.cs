@@ -18,15 +18,19 @@ public class GetAllAdvertisementsQuery
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public string ImageUrl { get; set; }
-
+        public List<string> ImagesUrl { get; set; }
+        public string CompanyName { get; set; }
+        public double Price { get; set; }
+        
         public static Expression<Func<Advertisement, Response>> Selector => l
             => new Response
             {
                 Id = l.Id,
                 Title = l.Title,
                 Description = l.Description,
-                ImageUrl = l.ImageUrl,
+                ImagesUrl = l.ImagesUrl,
+                Price = l.Price,
+                CompanyName = l.CompanyName
             };
     }
 }

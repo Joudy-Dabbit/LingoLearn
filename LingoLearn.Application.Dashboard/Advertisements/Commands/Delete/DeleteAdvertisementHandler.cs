@@ -26,7 +26,7 @@ public class DeleteAdvertisementHandler : IRequestHandler<DeleteAdvertisementCom
         
         toDelete.ForEach(ad => 
         {
-           _fileService.Delete(ad.ImageUrl);
+           _fileService.Delete(ad.ImagesUrl);
         });
         _repository.SoftDelete(toDelete);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
