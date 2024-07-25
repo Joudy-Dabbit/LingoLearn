@@ -11,16 +11,20 @@ public class GetHomeQuery
     }
     public class Response 
     {
-        public int EmployeesCount { get; set; }
-        public int DriversCount { get; set; }
-        public int CustomersCount { get; set; }
-        public int ShopsCount { get; set; }
-        public int OrdersCount { get; set; }
-        public List<HomeInfoRes> BestShops { get; set; }
-        public List<HomeInfoRes> BestDrivers { get; set; }
-        public List<int> ShippingOrderCountMonthly { get; set; }
-        public List<int> DeliveryOrderCountMonthly { get; set; }
-        public List<int> PassengerOrderCountMonthly { get; set; }
+        public int StudentCount { get; set; }
+        public int LanguageCount { get; set; }
+        public int LessonCount { get; set; }
+        public int LevelCount { get; set; }
+        public int AdvertisementCount { get; set; }
+        public int ChallengeCount { get; set; }
+        public int QuestionCount { get; set; }
+        public int AnswerCount { get; set; }
+        public List<HomeInfoRes> BestLanguages { get; set; }
+        public List<HomeInfoRes> BestStudents { get; set; }
+        public List<int> StudentCountMonthly { get; set; }
+        public List<int> LanguageCountMonthly { get; set; }
+        public List<int> LessonCountMonthly { get; set; }
+        public List<int> AdvertisementCountMonthly { get; set; }
 
         public class HomeInfoRes
         {
