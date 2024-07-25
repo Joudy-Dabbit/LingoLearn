@@ -24,9 +24,14 @@ public class AddAdvertisementHandler : IRequestHandler<AddAdvertisementCommand.R
     public async Task<OperationResponse<GetAllAdvertisementsQuery.Response>> HandleAsync(AddAdvertisementCommand.Request request,
         CancellationToken cancellationToken = new())
     {
-        var imageUrl = await _fileService.Upload(request.ImageFile);
+        var imagesUrl = "";
+        foreach (var file in request.ImagesFile)
+        {
+            var imageUrl = await _fileService.Upload(file);
+            imagesUrl = imagesUrl + "," + imageUrl;
+        }
         var question = new Advertisement(request.Title, request.Description, 
-            imageUrl ,request.ShowInWebsite, request.CompanyName, request.Price);
+            imagesUrl ,request.ShowInWebsite, request.CompanyName, request.Price);
         
         _repository.Add(question);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);

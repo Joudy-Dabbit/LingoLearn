@@ -30,7 +30,7 @@ public class GetByIdAdvertisementQuery
                 Id = l.Id,
                 Title = l.Title,
                 Description = l.Description,
-                ImagesUrl = l.ImagesUrl,
+                ImagesUrl = l.ImagesUrl.Split(',', StringSplitOptions.None).ToList(),
                 ShowInWebsite = l.ShowInWebsite,
                 Price = l.Price,
                 CompanyName = l.CompanyName

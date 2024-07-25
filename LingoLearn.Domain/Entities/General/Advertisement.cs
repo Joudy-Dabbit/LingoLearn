@@ -2,12 +2,7 @@ namespace Domain.Entities.General;
 
 public class Advertisement : AggregateRoot
 {
-    private Advertisement()
-    {
-        ImagesUrl = new List<string>();
-    }
-
-    public Advertisement(string title, string description, List<string> imagesUrl, 
+    public Advertisement(string title, string description, string imagesUrl, 
         bool showInWebsite, string companyName, double price)
     { 
         Title = title;
@@ -21,11 +16,11 @@ public class Advertisement : AggregateRoot
     public string Title { get; set; }
     public string Description { get; set; }
     public bool ShowInWebsite { get; set; }
-    public List<string> ImagesUrl { get; set; } = new();
+    public string ImagesUrl { get; set; } 
     public string CompanyName { get; set; }
     public double Price { get; set; }
     
-    public void Modify(string title, string description, List<string> imagesUrl,
+    public void Modify(string title, string description, string imagesUrl,
         bool showInWebsite, string companyName, double price)
     { 
         Title = title;

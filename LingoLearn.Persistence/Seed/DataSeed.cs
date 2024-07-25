@@ -83,7 +83,7 @@ public static class DataSeed
          }
          
          var shop = new Advertisement("new Advertisement", "Hello in our Advertisement!", 
-             new List<string>() {AddImage()}, true, "Advertisement Company", 1500);
+             AddImage(), true, "Advertisement Company", 1500);
          context.Add(shop);
          await context.SaveChangesAsync();
      }
