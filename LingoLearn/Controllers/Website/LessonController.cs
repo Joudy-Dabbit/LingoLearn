@@ -22,13 +22,4 @@ public class LessonController : ApiController
         [FromServices] IRequestHandler<GetAllLessonsQuery.Request,
             OperationResponse<List<GetAllLessonsQuery.Response>>> handler)
         => await handler.HandleAsync(new GetAllLessonsQuery.Request()).ToJsonResultAsync();
-    
-    
-    [HttpGet,LingoLearnRoute(ApiGroupNames.Website),ApiGroup(ApiGroupNames.Website)]
-    [ProducesResponseType(typeof(GetByIdLessonQuery.Response), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetById(
-        [FromServices] IRequestHandler<GetByIdLessonQuery.Request, 
-            OperationResponse<GetByIdLessonQuery.Response>> handler,
-        [FromQuery] GetByIdLessonQuery.Request request)
-        => await handler.HandleAsync(request).ToJsonResultAsync(); 
 }

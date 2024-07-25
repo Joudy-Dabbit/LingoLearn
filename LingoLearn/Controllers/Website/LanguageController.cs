@@ -20,4 +20,13 @@ public class LanguageController : ApiController
         [FromServices] IRequestHandler<GetAllLanguagesQuery.Request, 
             OperationResponse<List<GetAllLanguagesQuery.Response>>> handler)
         => await handler.HandleAsync(new GetAllLanguagesQuery.Request()).ToJsonResultAsync();      
+    
+    
+    [HttpGet,LingoLearnRoute(ApiGroupNames.Website),ApiGroup(ApiGroupNames.Website)]
+    [ProducesResponseType(typeof(GetByIdLanguageQuery.Response), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetById(
+        [FromServices] IRequestHandler<GetByIdLanguageQuery.Request, 
+            OperationResponse<GetByIdLanguageQuery.Response>> handler,
+        [FromQuery] GetByIdLanguageQuery.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync(); 
 }
