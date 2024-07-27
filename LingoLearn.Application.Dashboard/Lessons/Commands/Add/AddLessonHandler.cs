@@ -32,9 +32,17 @@ public class AddLessonHandler : IRequestHandler<AddLessonCommand.Request,
                 .ToResponse<GetAllLessonsQuery.Response>();
         
         var imageUrl = await _fileService.Upload(request.FileUrl);
+        var counter = 1;
+        var links = "";
+        foreach (var link in request.Links)
+        {
+            links = counter == 1 ? links + link : links + "|*|" + link ;
+            counter++;
+        }
         var coverImageUrl = await _fileService.Upload(request.CoverImageUrl);
         var lesson = new Lesson(request.Name, request.Description, request.LevelId,
-            request.Type, imageUrl ?? "", request.Order, request.Text, coverImageUrl ?? "");
+            request.Type, imageUrl ?? "", request.Order, request.Text, coverImageUrl ?? "",
+            links, request.ExpectedTimeOfCompletionInMinute);
         _repository.Add(lesson);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         

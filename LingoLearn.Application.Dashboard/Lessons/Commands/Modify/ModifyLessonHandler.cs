@@ -36,9 +36,16 @@ public class ModifyLessonHandler: IRequestHandler<ModifyLessonCommand.Request,
         }
         var imageUrl = await _fileService.Modify(level.FileUrl, request.FileUrl);
         var coverImageUrl = await _fileService.Upload(request.CoverImageUrl);
-
+        var counter = 1;
+        var links = "";
+        foreach (var link in request.Links)
+        {
+            links = counter == 1 ? links + link : links + "|*|" + link ;
+            counter++;
+        }
         level.Modify(request.Name, request.Description, imageUrl ?? "",
-                     request.Order, request.Text, coverImageUrl ?? "");
+                     request.Order, request.Text, coverImageUrl ?? "",
+                     links, request.ExpectedTimeOfCompletionInMinute);
         
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return await _repository.GetAsync(level.Id, GetByIdLessonQuery.Response.Selector);

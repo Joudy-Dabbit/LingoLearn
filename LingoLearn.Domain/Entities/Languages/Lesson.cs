@@ -6,7 +6,8 @@ public class Lesson : AggregateRoot
 {
     public Lesson(string name, string description, 
         Guid levelId, LessonType type, string? fileUrl, 
-        int order, string? text, string? coverImageUrl)
+        int order, string? text, string? coverImageUrl, 
+        string? links, int? expectedTimeOfCompletionInMinute)
     {
         Name = name;
         Description = description;
@@ -16,10 +17,14 @@ public class Lesson : AggregateRoot
         Order = order;
         Text = text;
         CoverImageUrl = coverImageUrl;
+        Links = links;
+        ExpectedTimeOfCompletionInMinute = expectedTimeOfCompletionInMinute;
     }
 
     public string Name { get; set; }
     public string? Text { get; set; }
+    public string? Links { get; set; }
+    public int? ExpectedTimeOfCompletionInMinute { get; set; }
     public int Order { get; set; }
     public string Description { get; set; }
     public string? FileUrl { get; set; }
@@ -37,7 +42,9 @@ public class Lesson : AggregateRoot
     public IReadOnlyCollection<FavoriteLesson> Favorites => _favorites.AsReadOnly();
     
     public void Modify(string name, string description,
-        string? fileUrl, int order, string? text, string? coverImageUrl)
+        string? fileUrl, int order, string? text, string? coverImageUrl,
+        string? links, int? expectedTimeOfCompletionInMinute)
+
     {
         Name = name;
         Description = description;
@@ -45,5 +52,7 @@ public class Lesson : AggregateRoot
         Order = order;
         Text = text;
         CoverImageUrl = coverImageUrl;
+        Links = links;
+        ExpectedTimeOfCompletionInMinute = expectedTimeOfCompletionInMinute;
     }
 }

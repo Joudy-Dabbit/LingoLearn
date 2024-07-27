@@ -31,25 +31,33 @@ public class GetByIdLevelQuery
             public string? FileUrl { get; set; }
             public string? CoverImageUrl { get; set; }
             public LessonType Type { get; set; }
+            public string? Text { get; set; }
+            public bool IsFavorite { get; set; }
+            public List<string>? Links { get; set; } = new();
+            public int? ExpectedTimeOfCompletionInMinute { get; set; }
         }
         
-        public static Expression<Func<Level, Response>> Selector => l
+        public static Expression<Func<Level, Response>> Selector(Guid studentId, string? search) => l
             => new()
             {
                 Id = l.Id,
                 Name = l.Name,
                 Description = l.Description,
                 LanguageId = l.LanguageId,
-                Lessons = l.Lessons.Select(le => new LessonsRes()
-                {
-                        Id = le.Id,
-                        Name = le.Name,
-                        Description = le.Description,
-                        Order = le.Order,
-                        Type = le.Type,
-                        CoverImageUrl = le.CoverImageUrl,
-                        FileUrl = le.FileUrl
-                }).OrderByDescending(les => les.Order).ToList()
+                Lessons = l.Lessons.Where(le => search == null || le.Name.Contains(search))
+                    .Select(le => new LessonsRes()
+                    {
+                            Id = le.Id,
+                            Name = le.Name,
+                            Description = le.Description,
+                            Order = le.Order,
+                            Type = le.Type,
+                            CoverImageUrl = le.CoverImageUrl,
+                            FileUrl = le.FileUrl,
+                            IsFavorite = le.Favorites.Any(f => f.StudentId == studentId),
+                            Links = le.Links != null ? le.Links.Split("|*|", StringSplitOptions.None).ToList() : null,
+                            ExpectedTimeOfCompletionInMinute = le.ExpectedTimeOfCompletionInMinute
+                    }).OrderByDescending(les => les.Order).ToList(),    
             };
     }
 }

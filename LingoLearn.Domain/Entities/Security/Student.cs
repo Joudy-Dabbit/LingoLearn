@@ -45,6 +45,10 @@ public class Student: User
     public IReadOnlyCollection<StudentLesson> StudentLessons => _studentLessons.AsReadOnly();
     
     
+    private readonly List<Comment> _comments = new();
+    public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly();
+    
+    
     public void Modify(string fullName, DateTime? birthDate, string email, 
         string phoneNumber, Gender gender, string imagUrl)
     {

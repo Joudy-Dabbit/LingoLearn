@@ -11,6 +11,8 @@ public class AddLessonCommand
     {  
         public string Name { get; set; }
         public string? Text { get; set; }
+        public List<string> Links { get; set; } = new();
+        public int? ExpectedTimeOfCompletionInMinute { get; set; }
         public int Order { get; set; }
         public string Description { get; set; }
         public IFormFile? FileUrl { get; set; }

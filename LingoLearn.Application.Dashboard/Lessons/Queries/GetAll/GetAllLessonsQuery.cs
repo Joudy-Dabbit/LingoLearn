@@ -24,7 +24,9 @@ public class GetAllLessonsQuery
         public string? CoverImageUrl { get; set; }
         public int Type { get; set; }
         public Guid LevelId { get; set; }
-
+        public List<string>? Links { get; set; } = new();
+        public int? ExpectedTimeOfCompletionInMinute { get; set; }
+        
         public static Expression<Func<Lesson, Response>> Selector => l
             => new()
             {
@@ -36,7 +38,9 @@ public class GetAllLessonsQuery
                 Order = l.Order,
                 FileUrl = l.FileUrl,
                 CoverImageUrl = l.CoverImageUrl,
-                Text = l.Text
+                Text = l.Text,
+                ExpectedTimeOfCompletionInMinute = l.ExpectedTimeOfCompletionInMinute,
+                Links = l.Links != null ? l.Links.Split("|*|", StringSplitOptions.None).ToList() : null,
             };
     }
 }

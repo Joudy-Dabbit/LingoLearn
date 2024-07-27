@@ -16,5 +16,7 @@ public class ModifyLessonCommand
         public string Description { get; set; }
         public IFormFile? FileUrl { get; set; }
         public IFormFile? CoverImageUrl { get; set; }
+        public List<string> Links { get; set; } = new();
+        public int? ExpectedTimeOfCompletionInMinute { get; set; }
     }
 }
