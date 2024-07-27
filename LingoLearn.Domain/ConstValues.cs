@@ -8,6 +8,7 @@ public class ConstValues
     public static readonly string WwwrootDir = "wwwroot";
     public static readonly string Seed = "Seed";
     public static readonly string LingoLearnJpg = "LingoLearn.jpg";
+    public static readonly string LingoLearnVid = "LingoLearnVid.mp4";
     public static readonly string UploadsDir = "Uploads";
 
     public class UserType

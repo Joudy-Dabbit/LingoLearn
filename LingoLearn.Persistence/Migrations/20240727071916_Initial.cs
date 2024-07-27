@@ -16,10 +16,12 @@ namespace LingoLearn.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShowInWebsite = table.Column<bool>(type: "bit", nullable: false),
+                    ImagesUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
@@ -55,6 +57,7 @@ namespace LingoLearn.Persistence.Migrations
                     Gender = table.Column<int>(type: "int", nullable: true),
                     DeviceToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImagUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Score = table.Column<int>(type: "int", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -79,20 +82,22 @@ namespace LingoLearn.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Certificates",
+                name: "ContactsUs",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Reply = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Certificates", x => x.Id);
+                    table.PrimaryKey("PK_ContactsUs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -413,15 +418,42 @@ namespace LingoLearn.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Certificates",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LevelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Certificates", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Certificates_Levels_LevelId",
+                        column: x => x.LevelId,
+                        principalTable: "Levels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Lessons",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Links = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExpectedTimeOfCompletionInMinute = table.Column<int>(type: "int", nullable: true),
                     Order = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FileUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CoverImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<int>(type: "int", nullable: false),
                     LevelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
@@ -440,12 +472,35 @@ namespace LingoLearn.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Question",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Order = table.Column<int>(type: "int", nullable: false),
+                    LevelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Question", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Question_Levels_LevelId",
+                        column: x => x.LevelId,
+                        principalTable: "Levels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LessonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
@@ -455,8 +510,8 @@ namespace LingoLearn.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Comments_AspNetUsers_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -474,7 +529,8 @@ namespace LingoLearn.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LessonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LessonId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
@@ -483,8 +539,8 @@ namespace LingoLearn.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_FavoriteLessons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FavoriteLessons_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_FavoriteLessons_AspNetUsers_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -492,6 +548,63 @@ namespace LingoLearn.Persistence.Migrations
                         name: "FK_FavoriteLessons_Lessons_LessonId",
                         column: x => x.LessonId,
                         principalTable: "Lessons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FavoriteLessons_Lessons_LessonId1",
+                        column: x => x.LessonId1,
+                        principalTable: "Lessons",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StudentLessons",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LessonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentLessons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StudentLessons_AspNetUsers_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StudentLessons_Lessons_LessonId",
+                        column: x => x.LessonId,
+                        principalTable: "Lessons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Answer",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsCorrect = table.Column<bool>(type: "bit", nullable: false),
+                    Order = table.Column<int>(type: "int", nullable: false),
+                    QuestionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Answer", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Answer_Question_QuestionId",
+                        column: x => x.QuestionId,
+                        principalTable: "Question",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -503,8 +616,7 @@ namespace LingoLearn.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LessonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UtcDateDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UtcDateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UtcDateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
@@ -513,8 +625,8 @@ namespace LingoLearn.Persistence.Migrations
                 {
                     table.PrimaryKey("PK_Replies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Replies_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Replies_AspNetUsers_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -523,13 +635,12 @@ namespace LingoLearn.Persistence.Migrations
                         column: x => x.CommentId,
                         principalTable: "Comments",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Replies_Lessons_LessonId",
-                        column: x => x.LessonId,
-                        principalTable: "Lessons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Answer_QuestionId",
+                table: "Answer",
+                column: "QuestionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -571,6 +682,11 @@ namespace LingoLearn.Persistence.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Certificates_LevelId",
+                table: "Certificates",
+                column: "LevelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ChallengeParticipants_ChallengeId",
                 table: "ChallengeParticipants",
                 column: "ChallengeId");
@@ -591,9 +707,9 @@ namespace LingoLearn.Persistence.Migrations
                 column: "LessonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_UserId",
+                name: "IX_Comments_StudentId",
                 table: "Comments",
-                column: "UserId");
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FavoriteLanguages_LanguageId",
@@ -611,9 +727,14 @@ namespace LingoLearn.Persistence.Migrations
                 column: "LessonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FavoriteLessons_UserId",
+                name: "IX_FavoriteLessons_LessonId1",
                 table: "FavoriteLessons",
-                column: "UserId");
+                column: "LessonId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavoriteLessons_StudentId",
+                table: "FavoriteLessons",
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Languages_Name",
@@ -632,6 +753,11 @@ namespace LingoLearn.Persistence.Migrations
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Question_LevelId",
+                table: "Question",
+                column: "LevelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RefreshTokens_UserId",
                 table: "RefreshTokens",
                 column: "UserId");
@@ -642,14 +768,9 @@ namespace LingoLearn.Persistence.Migrations
                 column: "CommentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Replies_LessonId",
+                name: "IX_Replies_StudentId",
                 table: "Replies",
-                column: "LessonId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Replies_UserId",
-                table: "Replies",
-                column: "UserId");
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentLanguages_LanguageId",
@@ -659,6 +780,16 @@ namespace LingoLearn.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_StudentLanguages_StudentId",
                 table: "StudentLanguages",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentLessons_LessonId",
+                table: "StudentLessons",
+                column: "LessonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentLessons_StudentId",
+                table: "StudentLessons",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
@@ -677,6 +808,9 @@ namespace LingoLearn.Persistence.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Advertisements");
+
+            migrationBuilder.DropTable(
+                name: "Answer");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -700,6 +834,9 @@ namespace LingoLearn.Persistence.Migrations
                 name: "ChallengeParticipants");
 
             migrationBuilder.DropTable(
+                name: "ContactsUs");
+
+            migrationBuilder.DropTable(
                 name: "FavoriteLanguages");
 
             migrationBuilder.DropTable(
@@ -715,7 +852,13 @@ namespace LingoLearn.Persistence.Migrations
                 name: "StudentLanguages");
 
             migrationBuilder.DropTable(
+                name: "StudentLessons");
+
+            migrationBuilder.DropTable(
                 name: "UserNotifications");
+
+            migrationBuilder.DropTable(
+                name: "Question");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

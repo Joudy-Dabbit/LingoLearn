@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LingoLearn.Persistence.Migrations
 {
     [DbContext(typeof(LingoLearnDbContext))]
-    [Migration("20240724211840_add_Score_to_student")]
-    partial class add_Score_to_student
+    [Migration("20240727071916_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -226,6 +226,9 @@ namespace LingoLearn.Persistence.Migrations
                     b.Property<Guid>("LessonId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("LessonId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("StudentId")
                         .HasColumnType("uniqueidentifier");
 
@@ -242,6 +245,8 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("LessonId");
 
+                    b.HasIndex("LessonId1");
+
                     b.HasIndex("StudentId");
 
                     b.ToTable("FavoriteLessons");
@@ -252,13 +257,20 @@ namespace LingoLearn.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("ImagesUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<bool>("ShowInWebsite")
                         .HasColumnType("bit");
@@ -362,11 +374,17 @@ namespace LingoLearn.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ExpectedTimeOfCompletionInMinute")
+                        .HasColumnType("int");
+
                     b.Property<string>("FileUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("LevelId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Links")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -940,7 +958,7 @@ namespace LingoLearn.Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Student", "Student")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -976,6 +994,10 @@ namespace LingoLearn.Persistence.Migrations
                         .HasForeignKey("LessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Domain.Entities.Lesson", null)
+                        .WithMany("Favorites")
+                        .HasForeignKey("LessonId1");
 
                     b.HasOne("Domain.Entities.Student", "Student")
                         .WithMany()
@@ -1175,6 +1197,8 @@ namespace LingoLearn.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Lesson", b =>
                 {
+                    b.Navigation("Favorites");
+
                     b.Navigation("Participants");
                 });
 
@@ -1197,6 +1221,8 @@ namespace LingoLearn.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Student", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("SelectedLanguages");
 
                     b.Navigation("StudentLessons");

@@ -18,15 +18,16 @@ public static class DataSeed
          var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>(); 
          SeedWwwroot(context);
          await SeedRole(roleManager, context);
-         await SeedAdmin(userManager, context);
+         await SeedUsers(userManager, context);
          await SeedLanguages(context);
          await SeedAdvertisements(context);
-         // await SeedCategories(context);
+         await SeedLevels(context);
+         await SeedLessons(context);
          // await SeedShops(context);
          // await SeedVehicles(context);
      }
 
-     private static async Task SeedAdmin(UserManager<User> userManager, LingoLearnDbContext context)
+     private static async Task SeedUsers(UserManager<User> userManager, LingoLearnDbContext context)
      {
          if (context.Admins.Any()) return;
          
@@ -45,9 +46,7 @@ public static class DataSeed
          await userManager.AddToRoleAsync(employee, nameof(LingoLearnRoles.Admin));
          await context.SaveChangesAsync();
      }
-
-     private static async Task SeedRole( RoleManager<IdentityRole<Guid>> roleManager,
-         DbContext context)
+     private static async Task SeedRole( RoleManager<IdentityRole<Guid>> roleManager, DbContext context)
      {
          if (roleManager.Roles.Any()) return;
 
@@ -79,7 +78,42 @@ public static class DataSeed
          
          await context.SaveChangesAsync();
      }
-     
+     private static async Task SeedLevels(LingoLearnDbContext context)
+     {
+         if (context.Levels.Any())
+         {
+             return;
+         }
+
+         var langId = context.Languages.First(l => l.Name == ProgrammingLang.Dart).Id;
+         context.Add(new Level("seed level", "seed Description", langId, 1));
+         await context.SaveChangesAsync();
+     }
+     private static async Task SeedLessons(LingoLearnDbContext context)
+     {
+         if (context.Lessons.Any())
+         {
+             return;
+         }
+
+         var levelId = context.Levels.First().Id;
+         context.AddRange( new List<Lesson>()
+         {
+             new("seed Lesson1", "seed File", levelId, LessonType.File,
+                 AddImage(), 1, null, AddImage(), null, null),
+             
+             new("seed Lesson2", "seed Documentation", levelId, LessonType.Documentation,
+               null, 2, "seed text for Documentation", AddImage(), null, 3),
+             
+             new("seed Lesson3", "seed Link", levelId, LessonType.Link,
+               null, 3, null, AddImage(), "https://learn.microsoft.com/en-us/aspnet/core/?view=aspnetcore-8.0|*|https://docs.oracle.com/javase/8/docs/api", null),
+
+             new("seed Lesson4", "seed Video", levelId, LessonType.Video,
+               AddVideo(), 4, null, AddImage(), null, null),
+         });
+         await context.SaveChangesAsync();
+     }
+          
      private static async Task SeedAdvertisements(LingoLearnDbContext context)
      {
          if (context.Advertisements.Any())
@@ -92,59 +126,9 @@ public static class DataSeed
          context.Add(shop);
          await context.SaveChangesAsync();
      }
-     
-//     private static async Task SeedVehicleTypes(LingoLearnDbContext context)
-//     {
-//         if (context.VehicleTypes.Any())
-//         {
-//             return;
-//         }
-//
-//         var vehicleType1 = new VehicleType("تكسي");
-//         var vehicleType2 = new VehicleType("شاحنة");
-//         var vehicleType3 = new VehicleType("موتور");
-//         context.AddRange(new List<VehicleType>() {vehicleType1, vehicleType2, vehicleType3});
-//         
-//         await context.SaveChangesAsync();
-//     }
-//     // private static async Task SeedVehicles(LingoLearnDbContext context)
-//     // {
-//     //     if (context.Vehicles.Any())
-//     //     {
-//     //         return;
-//     //     }
-//     //     var vehicleTypeId = context.VehicleTypes.First(c => !c.UtcDateDeleted.HasValue).Id;
-//     //
-//     //     context.Add(new Vehicle("هوندا", vehicleTypeId,100, "#FFFF00", "101", AddImage()));
-//     //     
-//     //     await context.SaveChangesAsync();
-//     // }
-//     private static async Task SeedCitiesWithArea(LingoLearnDbContext context)
-//     {
-//         if (context.Cities.Any())
-//         {
-//             return;
-//         }
-//
-//         var city = new City("دمشق");
-//         var city1 = new City("حلب");
-//         context.AddRange(new List<City>() {city1, city});
-//         await context.SaveChangesAsync();
-//
-//         var area = new Area("المزة", city.Id);
-//         context.Add(area);
-//         await context.SaveChangesAsync();
-//         
-//         var area1 = new Area("الفرقان", city1.Id);
-//         context.Add(area1);
-//         await context.SaveChangesAsync();
-//         
-//         var area2 = new Area("الشهباء", city1.Id);
-//         context.Add(area2);
-//         await context.SaveChangesAsync();
-//         
-//     }
-//
+
+
+     #region - Base -
      private static void SeedWwwroot(LingoLearnDbContext context)
      {
          if (context.Lessons.Any())
@@ -162,7 +146,6 @@ public static class DataSeed
              Directory.CreateDirectory(Path.Combine(ConstValues.WwwrootDir, ConstValues.Seed));
          }
      }
-
      private static string AddImage()
      {
          var s = Path.Combine(Directory.GetCurrentDirectory(), ConstValues.LingoLearnJpg);
@@ -170,7 +153,16 @@ public static class DataSeed
          var d = Path.Combine(Directory.GetCurrentDirectory(), ConstValues.WwwrootDir, x);
          File.Copy(s, d);
          return x;
+     } 
+     private static string AddVideo()
+     {
+         var s = Path.Combine(Directory.GetCurrentDirectory(), ConstValues.LingoLearnVid);
+         var x = Path.Combine(ConstValues.Seed, Guid.NewGuid() + "_" + ConstValues.LingoLearnVid);
+         var d = Path.Combine(Directory.GetCurrentDirectory(), ConstValues.WwwrootDir, x);
+         File.Copy(s, d);
+         return x;
      }
+     #endregion
 }
 
 
