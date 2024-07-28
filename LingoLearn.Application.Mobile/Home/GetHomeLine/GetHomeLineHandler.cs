@@ -53,8 +53,7 @@ public class GetHomeLineHandler: IRequestHandler<GetHomeLineQuery.Request,
             l.Lessons.ForEach(le =>
             {
                 le.IsDone = _repository.Query<StudentLesson>()
-                    .Any(sl => sl.StudentId == _httpService.CurrentUserId
-                               && sl.LessonId == le.Id);
+                    .Any(sl => sl.StudentId == _httpService.CurrentUserId && sl.LessonId == le.Id);
             });
         });
         

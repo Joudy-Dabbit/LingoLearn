@@ -35,6 +35,7 @@ public class GetByIdLevelQuery
             public bool IsFavorite { get; set; }
             public List<string>? Links { get; set; } = new();
             public int? ExpectedTimeOfCompletionInMinute { get; set; }
+            public bool IsDone { get; set; }
         }
         
         public static Expression<Func<Level, Response>> Selector(Guid studentId, string? search) => l
@@ -54,10 +55,10 @@ public class GetByIdLevelQuery
                             Type = le.Type,
                             CoverImageUrl = le.CoverImageUrl,
                             FileUrl = le.FileUrl,
-                            IsFavorite = le.Favorites.Any(f => f.StudentId == studentId),
+                            Text = le.Text,
                             Links = le.Links != null ? le.Links.Split("|*|", StringSplitOptions.None).ToList() : null,
-                            ExpectedTimeOfCompletionInMinute = le.ExpectedTimeOfCompletionInMinute
-                    }).OrderByDescending(les => les.Order).ToList(),    
+                            ExpectedTimeOfCompletionInMinute = le.ExpectedTimeOfCompletionInMinute,
+                    }).OrderBy(les => les.Order).ToList(),    
             };
     }
 }

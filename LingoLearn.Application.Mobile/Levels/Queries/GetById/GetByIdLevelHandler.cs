@@ -29,8 +29,15 @@ public class GetByIdLevelHandler : IRequestHandler<GetByIdLevelQuery.Request,
         if (level is not { UtcDateDeleted: null })
             return OperationResponse.WithBadRequest("Level Not found").ToResponse<GetByIdLevelQuery.Response>();
 
-        return await _repository.GetAsync(request.Id,
+        var result = await _repository.GetAsync(request.Id,
             GetByIdLevelQuery.Response.Selector(_httpService.CurrentUserId!.Value, request.Search),
             "Lessons");
+
+        result.Lessons.ForEach(le =>
+        {
+            le.IsFavorite = _repository.Query<FavoriteLesson>().Any(f => f.StudentId == _httpService.CurrentUserId && f.LessonId == le.Id);
+            le.IsDone = _repository.Query<StudentLesson>().Any(sl => sl.StudentId == _httpService.CurrentUserId && sl.LessonId == le.Id);
+        });
+        return result;
     }
 }

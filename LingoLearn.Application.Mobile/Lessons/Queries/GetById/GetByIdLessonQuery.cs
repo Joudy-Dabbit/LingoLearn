@@ -25,6 +25,7 @@ public class GetByIdLessonQuery
         public Guid LevelId { get; private set; }
         public string? Text { get; set; }
         public bool IsFavorite { get; set; }
+        public bool IsDone { get; set; }
         public List<string>? Links { get; set; } = new();
         public int? ExpectedTimeOfCompletionInMinute { get; set; }
         
@@ -40,7 +41,6 @@ public class GetByIdLessonQuery
                 FileUrl = l.FileUrl,
                 CoverImageUrl = l.CoverImageUrl,
                 Text = l.Text,
-                IsFavorite = l.Favorites.Any(f => f.StudentId == studentId),
                 Links = l.Links != null ? l.Links.Split("|*|", StringSplitOptions.None).ToList() : null,
                 ExpectedTimeOfCompletionInMinute = l.ExpectedTimeOfCompletionInMinute
             };

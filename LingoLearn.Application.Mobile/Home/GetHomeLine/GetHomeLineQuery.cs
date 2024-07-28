@@ -62,8 +62,8 @@ public class GetHomeLineQuery
                         Description = le.Description,
                         Order = le.Order,
                         Type = le.Type,
-                        FileUrl = le.FileUrl
-                    }).ToList()
+                        FileUrl = le.FileUrl,
+                    }).OrderBy(les => les.Order).ToList()
                 }).ToList()
             };
     }

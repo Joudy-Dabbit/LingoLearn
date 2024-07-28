@@ -41,9 +41,9 @@ public static class DataSeed
          await userManager.AddToRoleAsync(employee, nameof(LingoLearnRoles.Admin));
          await context.SaveChangesAsync();
          
-         var student = new Admin("Batoul Darwish","joudy.6.dabbit@gmail.com");
-         await userManager.CreateAsync(student, "1111");
-         await userManager.AddToRoleAsync(employee, nameof(LingoLearnRoles.Admin));
+         var student = new Admin("Batoul Darwish","student@gmail.com");
+         await userManager.CreateAsync(student, "1234");
+         await userManager.AddToRoleAsync(employee, nameof(LingoLearnRoles.Student));
          await context.SaveChangesAsync();
      }
      private static async Task SeedRole( RoleManager<IdentityRole<Guid>> roleManager, DbContext context)

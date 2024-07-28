@@ -29,7 +29,10 @@ public class GetByIdLessonHandler : IRequestHandler<GetByIdLessonQuery.Request,
         if (lesson is not { UtcDateDeleted: null })
             return OperationResponse.WithBadRequest("Lesson Not found").ToResponse<GetByIdLessonQuery.Response>();
 
-        return await _repository.GetAsync(request.Id, 
-            GetByIdLessonQuery.Response.Selector(_httpService.CurrentUserId!.Value), "Favorites");
+        var res = await _repository.GetAsync(request.Id, GetByIdLessonQuery.Response.Selector(_httpService.CurrentUserId!.Value));
+        res.IsFavorite = _repository.Query<FavoriteLesson>().Any(f => f.StudentId == _httpService.CurrentUserId && f.LessonId == res.Id);
+        res.IsDone = _repository.Query<StudentLesson>().Any(sl => sl.StudentId == _httpService.CurrentUserId && sl.LessonId == res.Id);
+
+        return res;
     }
 }
