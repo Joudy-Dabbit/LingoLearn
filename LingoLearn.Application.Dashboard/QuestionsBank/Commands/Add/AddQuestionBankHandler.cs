@@ -46,6 +46,10 @@ public class AddQuestionBankHandler : IRequestHandler<AddQuestionBankCommand.Req
                 return OperationResponse.WithBadRequest($"A Answer in order {answer.Order} already exists!")
                     .ToResponse<GetAllQuestionsBankQuery.Response>();
             
+            if(answer.Order > 4)
+                return OperationResponse.WithBadRequest($"A Answer in order {answer.Order} grater than 4!")
+                    .ToResponse<GetAllQuestionsBankQuery.Response>();
+            
             question.AddAnswer(answer.Order, answer.Text, answer.IsCorrect);
         };
         _repository.Add(question);

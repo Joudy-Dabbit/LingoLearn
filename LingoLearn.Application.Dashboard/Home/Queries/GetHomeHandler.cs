@@ -67,7 +67,7 @@ public class GetHomeHandler : IRequestHandler<GetHomeQuery.Request, OperationRes
                 .Select(d => new GetHomeQuery.Response.HomeInfoRes()
                 {
                     Id = d.Id,
-                    Name = d.UserName,
+                    Name = d.FullName,
                     ImageUrl = d.ImagUrl
                 })
                 .Take(5).ToListAsync(cancellationToken),

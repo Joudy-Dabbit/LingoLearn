@@ -12,6 +12,6 @@ public class ModifyLanguageCommand
         public Guid Id { get; set; }
         public ProgrammingLang Name { get; set; }
         public string Description { get; set; }
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
     }
 }
