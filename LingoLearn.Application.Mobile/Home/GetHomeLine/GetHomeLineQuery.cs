@@ -39,7 +39,12 @@ public class GetHomeLineQuery
             public int Order { get; set; }
             public string Description { get; set; }
             public string? FileUrl { get; set; }
+            public string? CoverImageUrl { get; set; }
             public LessonType Type { get; set; }
+            public string? Text { get; set; }
+            public bool IsFavorite { get; set; }
+            public List<string>? Links { get; set; } = new();
+            public int? ExpectedTimeOfCompletionInMinute { get; set; }
             public bool IsDone { get; set; }
         }
 
@@ -62,7 +67,11 @@ public class GetHomeLineQuery
                         Description = le.Description,
                         Order = le.Order,
                         Type = le.Type,
+                        CoverImageUrl = le.CoverImageUrl,
                         FileUrl = le.FileUrl,
+                        Text = le.Text,
+                        Links = le.Links != null ? le.Links.Split("|*|", StringSplitOptions.None).ToList() : null,
+                        ExpectedTimeOfCompletionInMinute = le.ExpectedTimeOfCompletionInMinute
                     }).OrderBy(les => les.Order).ToList()
                 }).ToList()
             };

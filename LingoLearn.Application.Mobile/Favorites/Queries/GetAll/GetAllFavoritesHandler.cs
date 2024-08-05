@@ -30,8 +30,18 @@ public class GetAllFavoritesHandler : IRequestHandler<GetAllFavoritesQuery.Reque
         if(lang is null)
             return OperationResponse.WithBadRequest("Language in header not found!").ToResponse<List<GetAllFavoritesQuery.Response>>();
 
-        return await _repository.GetAsync(
+        var result = await _repository.GetAsync(
             e => !e.UtcDateDeleted.HasValue && e.Lesson.Level.LanguageId == lang.Id && e.StudentId == _httpService.CurrentUserId!.Value,
             GetAllFavoritesQuery.Response.Selector, "Lesson", "Lesson.Level");
+        
+        result.ForEach(le =>
+        {
+            le.Lesson.IsFavorite = _repository.Query<FavoriteLesson>()
+                .Any(f => f.StudentId == _httpService.CurrentUserId && f.LessonId == le.Lesson.Id);
+            le.Lesson.IsDone = _repository.Query<StudentLesson>()
+                .Any(sl => sl.StudentId == _httpService.CurrentUserId && sl.LessonId == le.Lesson.Id);
+        });
+
+        return result;
     }
 }

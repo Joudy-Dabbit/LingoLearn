@@ -52,8 +52,8 @@ public class GetHomeLineHandler: IRequestHandler<GetHomeLineQuery.Request,
         {
             l.Lessons.ForEach(le =>
             {
-                le.IsDone = _repository.Query<StudentLesson>()
-                    .Any(sl => sl.StudentId == _httpService.CurrentUserId && sl.LessonId == le.Id);
+                le.IsDone = _repository.Query<StudentLesson>().Any(sl => sl.StudentId == _httpService.CurrentUserId && sl.LessonId == le.Id);
+                le.IsFavorite = _repository.Query<FavoriteLesson>().Any(f => f.StudentId == _httpService.CurrentUserId && f.LessonId == le.Id);
             });
         });
         
