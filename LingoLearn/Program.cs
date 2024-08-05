@@ -3,6 +3,9 @@ using Domain;
 using Domain.Entities;
 using EasyRefreshToken.DependencyInjection;
 using EasyRefreshToken.Models;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
+using LingoLearn.Application.Dashboard.Core.Notifications;
 using Microsoft.OpenApi.Models;
 using Neptunee.BaseCleanArchitecture.AppBuilder.InitialAppBuilder;
 using Neptunee.BaseCleanArchitecture.DependencyInjection;
@@ -10,6 +13,7 @@ using Neptunee.BaseCleanArchitecture.SwaggerApi;
 using LingoLearn.Persistence;
 using LingoLearn.Infrastructure;
 using LingoLearn.Infrastructure.Filters;
+using LingoLearn.Infrastructure.Notification;
 using LingoLearn.Persistence.Context;
 using LingoLearn.Persistence.Seed;
 using LingoLearn.Util;
@@ -43,6 +47,7 @@ builder.Services
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<INotificationService, NotificationService>();
 
 builder.Services.AddCors(o =>
 {
@@ -70,6 +75,20 @@ var app = builder.Build();
 if (!Directory.Exists("wwwroot"))
 {
     Directory.CreateDirectory("wwwroot");
+}
+if (FirebaseApp.DefaultInstance is null)
+{
+    try
+    {
+        FirebaseApp.Create(new AppOptions
+        {
+            Credential = GoogleCredential.FromFile("firebase-adminsdk.json"),
+        });
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e);
+    }
 }
 
 app.UseSwaggerApi(o => o.AddEndpoint("All")
