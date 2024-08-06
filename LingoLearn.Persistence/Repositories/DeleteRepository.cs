@@ -65,6 +65,25 @@ public class DeleteRepository : Repository<Guid, LingoLearnDbContext>, IDeleteRe
         SoftDelete(answers);
     }   
     
+    public async Task DeleteChallengeQuestions(List<Guid> ids)
+    {
+        var questions = await TrackingQuery<ChallengeQuestion>()
+            .Include("Answers")
+            .Where(c => ids.Contains(c.Id))
+            .ToListAsync();
+        
+        _deleteChallengeAnswers(questions);
+        SoftDelete(questions);
+        await UnitOfWork.SaveChangesAsync();
+    }
+
+    private void _deleteChallengeAnswers(List<ChallengeQuestion> questions)
+    {
+        var answers = questions.SelectMany(c => c.Answers).ToList();
+
+        SoftDelete(answers);
+    }   
+    
     private void _deleteLevels(List<Language> languages)
     {
         var levels = languages.SelectMany(c => c.Levels).ToList();

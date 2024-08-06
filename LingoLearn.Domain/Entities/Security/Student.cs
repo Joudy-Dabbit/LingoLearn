@@ -44,6 +44,9 @@ public class Student: User
     private readonly List<StudentLesson> _studentLessons = new();
     public IReadOnlyCollection<StudentLesson> StudentLessons => _studentLessons.AsReadOnly();
     
+    private readonly List<StudentChallenge> _participants = new();
+    public IReadOnlyCollection<StudentChallenge> Participants => _participants.AsReadOnly();
+    
     
     private readonly List<Comment> _comments = new();
     public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly();

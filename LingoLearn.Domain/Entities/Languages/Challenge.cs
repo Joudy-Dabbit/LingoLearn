@@ -27,6 +27,15 @@ public class Challenge : AggregateRoot
     public Guid LanguageId { get; private set; }
     public Language Language { get; private set; }
     
+      
+    private readonly List<StudentChallenge> _participants = new();
+    public IReadOnlyCollection<StudentChallenge> Participants => _participants.AsReadOnly();      
+    
+    
+    private readonly List<ChallengeQuestion> _questions = new();
+    public IReadOnlyCollection<ChallengeQuestion> Questions => _questions.AsReadOnly();
+    
+    
     public  void Modify(string name, string description,
         Guid languageId, DateTime startDate, DateTime endDate,
         int points, string imageUrl, string coverImageUrl)

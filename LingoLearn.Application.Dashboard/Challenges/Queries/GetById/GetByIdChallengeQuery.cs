@@ -25,7 +25,27 @@ public class GetByIdChallengeQuery
         public Guid LanguageId { get; set; }
         public string ImageUrl { get; set; }
         public string CoverImageUrl { get; set; }
-        
+        public List<QuestionsRes> Questions { get; set; }
+
+        public class QuestionsRes
+        {
+            public Guid Id { get; set; }
+            public string Text { get; set; }
+            public int Order { get; set; }
+            public bool IsMultiChoices { get; set; }
+
+            public Guid ChallengeId { get; set; }
+            public List<AnswerRes> Answers { get; set; }
+        }
+
+        public class AnswerRes
+        {
+            public Guid Id { get; set; }
+            public string Text { get; set; }
+            public bool IsCorrect { get; set; }
+            public int Order { get; set; }
+        }
+
         public static Expression<Func<Challenge, Response>> Selector => l
             => new Response
             {
@@ -37,7 +57,22 @@ public class GetByIdChallengeQuery
                 Points = l.Points,
                 LanguageId = l.LanguageId,
                 ImageUrl = l.ImageUrl,
-                CoverImageUrl = l.CoverImageUrl
+                CoverImageUrl = l.CoverImageUrl,
+                Questions = l.Questions.OrderBy(a => a.Order).Select(q => new QuestionsRes()
+                {
+                    Id = q.Id,
+                    Text = q.Text,
+                    Order = q.Order,
+                    ChallengeId = q.ChallengeId,
+                    IsMultiChoices = q.IsMultiChoices,
+                    Answers = q.Answers.Where(a => !a.UtcDateDeleted.HasValue).Select(v => new AnswerRes()
+                    {
+                        Id = v.Id,
+                        Order = v.Order,
+                        Text = v.Text,
+                        IsCorrect = v.IsCorrect
+                    }).OrderBy(a => a.Order).ToList()
+                }).ToList()
             };
     }
 }

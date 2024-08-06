@@ -4,6 +4,7 @@ using LingoLearn.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LingoLearn.Persistence.Migrations
 {
     [DbContext(typeof(LingoLearnDbContext))]
-    partial class LingoLearnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240805233428_Add_Challenge")]
+    partial class Add_Challenge
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,41 +144,7 @@ namespace LingoLearn.Persistence.Migrations
                     b.ToTable("Challenges");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ChallengeAnswer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("UtcDateCreated")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTimeOffset?>("UtcDateDeleted")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTimeOffset?>("UtcDateUpdated")
-                        .HasColumnType("datetimeoffset");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("ChallengeAnswer");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ChallengeQuestion", b =>
+            modelBuilder.Entity("Domain.Entities.ChallengeParticipant", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -183,15 +152,8 @@ namespace LingoLearn.Persistence.Migrations
                     b.Property<Guid>("ChallengeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsMultiChoices")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTimeOffset>("UtcDateCreated")
                         .HasColumnType("datetimeoffset");
@@ -206,7 +168,9 @@ namespace LingoLearn.Persistence.Migrations
 
                     b.HasIndex("ChallengeId");
 
-                    b.ToTable("ChallengeQuestion");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ChallengeParticipants");
                 });
 
             modelBuilder.Entity("Domain.Entities.Comment", b =>
@@ -598,35 +562,6 @@ namespace LingoLearn.Persistence.Migrations
                     b.ToTable("Replies");
                 });
 
-            modelBuilder.Entity("Domain.Entities.StudentChallenge", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ChallengeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("UtcDateCreated")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTimeOffset?>("UtcDateDeleted")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTimeOffset?>("UtcDateUpdated")
-                        .HasColumnType("datetimeoffset");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ChallengeId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("StudentsChallenge");
-                });
-
             modelBuilder.Entity("Domain.Entities.StudentLanguage", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1012,26 +947,23 @@ namespace LingoLearn.Persistence.Migrations
                     b.Navigation("Language");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ChallengeAnswer", b =>
-                {
-                    b.HasOne("Domain.Entities.ChallengeQuestion", "Question")
-                        .WithMany("Answers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ChallengeQuestion", b =>
+            modelBuilder.Entity("Domain.Entities.ChallengeParticipant", b =>
                 {
                     b.HasOne("Domain.Entities.Challenge", "Challenge")
-                        .WithMany("Questions")
+                        .WithMany()
                         .HasForeignKey("ChallengeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Challenge");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.Comment", b =>
@@ -1143,25 +1075,6 @@ namespace LingoLearn.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Comment");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("Domain.Entities.StudentChallenge", b =>
-                {
-                    b.HasOne("Domain.Entities.Challenge", "Challenge")
-                        .WithMany("Participants")
-                        .HasForeignKey("ChallengeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Student", "Student")
-                        .WithMany("Participants")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Challenge");
 
                     b.Navigation("Student");
                 });
@@ -1285,18 +1198,6 @@ namespace LingoLearn.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Entities.Challenge", b =>
-                {
-                    b.Navigation("Participants");
-
-                    b.Navigation("Questions");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ChallengeQuestion", b =>
-                {
-                    b.Navigation("Answers");
-                });
-
             modelBuilder.Entity("Domain.Entities.Comment", b =>
                 {
                     b.Navigation("Replies");
@@ -1338,8 +1239,6 @@ namespace LingoLearn.Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Student", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("Participants");
 
                     b.Navigation("SelectedLanguages");
 

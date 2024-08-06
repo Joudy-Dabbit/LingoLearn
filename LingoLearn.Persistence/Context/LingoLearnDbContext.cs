@@ -74,7 +74,7 @@ public class LingoLearnDbContext : BaseIdentityDbContext<Guid,User>, ILingoLearn
      
     #region -Achievements-
     public DbSet<Certificate> Certificates => Set<Certificate>();
-    public DbSet<ChallengeParticipant> ChallengeParticipants => Set<ChallengeParticipant>();
+    public DbSet<StudentChallenge> StudentsChallenge => Set<StudentChallenge>();
     public DbSet<Comment> Comments => Set<Comment>();
     public DbSet<Reply> Replies => Set<Reply>();
     public DbSet<StudentLanguage> StudentLanguages => Set<StudentLanguage>();

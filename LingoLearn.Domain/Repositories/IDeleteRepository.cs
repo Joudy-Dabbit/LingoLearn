@@ -7,4 +7,5 @@ public interface IDeleteRepository : IRepository<Guid>
     Task DeleteLanguage(List<Guid> ids);
     Task DeleteLevels(List<Guid> ids);
     Task DeleteQuestions(List<Guid> ids);
+    Task DeleteChallengeQuestions(List<Guid> ids);
 }

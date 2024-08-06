@@ -27,6 +27,6 @@ public class GetByIdChallengeHandler : IRequestHandler<GetByIdChallengeQuery.Req
         if (challenge is not { UtcDateDeleted: null })
             return OperationResponse.WithBadRequest("Challenge Not found").ToResponse<GetByIdChallengeQuery.Response>();
 
-        return await _repository.GetAsync(request.Id, GetByIdChallengeQuery.Response.Selector);
+        return await _repository.GetAsync(request.Id, GetByIdChallengeQuery.Response.Selector, "Questions");
     }
 }
