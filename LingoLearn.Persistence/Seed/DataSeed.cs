@@ -23,7 +23,7 @@ public static class DataSeed
          await SeedAdvertisements(context);
          await SeedLevels(context);
          await SeedLessons(context);
-         // await SeedShops(context);
+         await SeedChallenges(context);
          // await SeedVehicles(context);
      }
 
@@ -124,6 +124,20 @@ public static class DataSeed
          var shop = new Advertisement("new Advertisement", "Hello in our Advertisement!", 
              AddImage(), true, "Advertisement Company", 1500);
          context.Add(shop);
+         await context.SaveChangesAsync();
+     }
+          
+     private static async Task SeedChallenges(LingoLearnDbContext context)
+     {
+         if (context.Challenges.Any())
+         {
+             return;
+         }
+
+         var langId = context.Languages.First(l => l.Name == ProgrammingLang.Dart).Id;
+         var challenge = new Challenge("new Challenge", "Hello in our Challenge!", langId,
+             DateTime.Today, DateTime.MaxValue, 100, AddImage(), AddImage());
+         context.Add(challenge);
          await context.SaveChangesAsync();
      }
 

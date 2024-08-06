@@ -19,6 +19,8 @@
     <ItemGroup>
       <Folder Include="Advertisements\" />
       <Folder Include="Certificates\" />
+      <Folder Include="Challenges\Commands\" />
+      <Folder Include="Challenges\Queries\" />
       <Folder Include="Lessons\" />
       <Folder Include="Levels\" />
       <Folder Include="QuestionsBank\" />
