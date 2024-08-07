@@ -31,6 +31,7 @@ public class GetByIdChallengeQuery
         public class ParticipantsRes
         {
             public Guid Id { get; set; }
+            public string FullName { get; set; }
             public string ImageUrl { get; set; }
             public int Score { get; set; }
         }
@@ -70,6 +71,7 @@ public class GetByIdChallengeQuery
                 Participants = l.Participants.Select(p => new ParticipantsRes()
                 {
                     Id = p.Student.Id,
+                    FullName = p.Student.FullName,
                     ImageUrl = p.Student.ImagUrl
                 }).ToList(),
                 Questions = l.Questions.OrderBy(a => a.Order).Select(q => new QuestionsRes()

@@ -27,6 +27,12 @@ public class GetByIdChallengeHandler : IRequestHandler<GetByIdChallengeQuery.Req
         if (challenge is not { UtcDateDeleted: null })
             return OperationResponse.WithBadRequest("Challenge Not found").ToResponse<GetByIdChallengeQuery.Response>();
 
+        foreach (var challengeParticipant in challenge.Participants)
+        {
+            challengeParticipant.Score = await _repository.Query<StudentChallenge>()
+                .Where(s => s.ChallengeId == request.Id && s.StudentId == challengeParticipant.StudentId)
+                .Select(s => s.Score).FirstAsync(cancellationToken);
+        }
         return await _repository.GetAsync(request.Id, GetByIdChallengeQuery.Response.Selector, "Questions");
     }
 }

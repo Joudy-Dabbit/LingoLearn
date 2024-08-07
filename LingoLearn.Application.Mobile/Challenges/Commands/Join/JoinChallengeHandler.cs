@@ -36,6 +36,12 @@ public class JoinChallengeHandler : IRequestHandler<JoinChallengeCommand.Request
 
         if (student == null) return DomainError.User.NotFound;
 
+        var studentChallenge = await _repository.Query<StudentChallenge>()
+            .Where(s => s.StudentId == student.Id && s.ChallengeId == challenge.Id)
+            .AnyAsync(cancellationToken);
+        
+        if(studentChallenge) return OperationResponse.WithBadRequest("you already joined!");
+        
         student.JoinChallenge(request.Id);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return OperationResponse.WithOk();    
