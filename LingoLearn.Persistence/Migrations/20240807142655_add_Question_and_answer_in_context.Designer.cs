@@ -4,6 +4,7 @@ using LingoLearn.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LingoLearn.Persistence.Migrations
 {
     [DbContext(typeof(LingoLearnDbContext))]
-    partial class LingoLearnDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240807142655_add_Question_and_answer_in_context")]
+    partial class add_Question_and_answer_in_context
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -45,7 +45,6 @@
     <ItemGroup>
       <Folder Include="wwwroot\ProfileImage\" />
       <Folder Include="wwwroot\Seed\" />
-      <Folder Include="wwwroot\Uploads\" />
     </ItemGroup>
 
     <ItemGroup>

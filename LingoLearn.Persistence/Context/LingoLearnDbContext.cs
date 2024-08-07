@@ -70,6 +70,10 @@ public class LingoLearnDbContext : BaseIdentityDbContext<Guid,User>, ILingoLearn
     public DbSet<Challenge> Challenges => Set<Challenge>();
     public DbSet<Lesson> Lessons => Set<Lesson>();
     public DbSet<Level> Levels => Set<Level>();
+    public DbSet<Question> Questions => Set<Question>();
+    public DbSet<Answer> Answers => Set<Answer>();
+    public DbSet<ChallengeQuestion> ChallengeQuestions => Set<ChallengeQuestion>();
+    public DbSet<ChallengeAnswer> ChallengeAnswers => Set<ChallengeAnswer>();
     #endregion
      
     #region -Achievements-

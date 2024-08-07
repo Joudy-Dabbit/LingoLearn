@@ -19,6 +19,7 @@
     <ItemGroup>
       <Folder Include="Achievements\Commands\" />
       <Folder Include="Achievements\Queries\" />
+      <Folder Include="Challenges\Commands\SaveFinalScore\" />
       <Folder Include="Levels\" />
       <Folder Include="Replies\Commands\" />
     </ItemGroup>

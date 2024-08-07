@@ -53,8 +53,9 @@ public sealed class StudentController : ApiController
     [HttpPost,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetStudentProfileQuery.Response))]
     public async Task<IActionResult> Modify(    
-        [FromServices] IRequestHandler<ModifyStudentCommand.Request, OperationResponse<GetStudentProfileQuery.Response>> handler,
-        [FromQuery] ModifyStudentCommand.Request request)
+        [FromServices] IRequestHandler<ModifyStudentCommand.Request,
+            OperationResponse<GetStudentProfileQuery.Response>> handler,
+        [FromForm] ModifyStudentCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();
 
 

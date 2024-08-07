@@ -24,7 +24,7 @@ public static class DataSeed
          await SeedLevels(context);
          await SeedLessons(context);
          await SeedChallenges(context);
-         // await SeedVehicles(context);
+         await SeedQuestionsBanks(context);
      }
 
      private static async Task SeedUsers(UserManager<User> userManager, LingoLearnDbContext context)
@@ -112,6 +112,51 @@ public static class DataSeed
                AddVideo(), 4, null, AddImage(), null, null),
          });
          await context.SaveChangesAsync();
+     }
+     private static async Task SeedQuestionsBanks(LingoLearnDbContext context)
+     {
+         if (context.Questions.Any())
+         {
+             return;
+         }
+
+         var levelId = context.Levels.Include(l => l.Language).First(l => l.Language.Name == ProgrammingLang.Dart).Id;
+         
+         var question1 = new Question(levelId, 1, "Question1");
+         context.Questions.Add(question1);
+         await context.SaveChangesAsync();
+         for (var i = 1; i <= 4; i++)
+         {
+             context.Answers.Add(new Answer(question1.Id, i, $"answer{i}", i == 1));
+             await context.SaveChangesAsync();
+         }
+         
+         var question2 = new Question(levelId, 2, "Question2");
+         context.Questions.Add(question2);
+         await context.SaveChangesAsync();
+         for (var i = 1; i <= 4; i++)
+         {
+             context.Answers.Add(new Answer(question2.Id, i, $"answer{i}", i == 1));
+             await context.SaveChangesAsync();
+         }
+         
+         var question3 = new Question(levelId, 3, "Question3");
+         context.Questions.Add(question3);
+         await context.SaveChangesAsync();
+         for (var i = 1; i <= 4; i++)
+         {
+             context.Answers.Add(new Answer(question3.Id, i, $"answer{i}", i == 1));
+             await context.SaveChangesAsync();
+         }
+         
+         var question4 = new Question(levelId, 4, "Question4");
+         context.Questions.Add(question4);
+         await context.SaveChangesAsync();
+         for (var i = 1; i <= 4; i++)
+         {
+             context.Answers.Add(new Answer(question4.Id, i, $"answer{i}", i == 1));
+             await context.SaveChangesAsync();
+         }
      }
           
      private static async Task SeedAdvertisements(LingoLearnDbContext context)
