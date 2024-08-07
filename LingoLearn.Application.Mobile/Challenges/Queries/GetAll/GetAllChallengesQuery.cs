@@ -9,7 +9,7 @@ namespace LingoLearn.Application.Mobile.Challenges;
 
 public class GetAllChallengesQuery
 {
-    public class Request : IRequest<OperationResponse<List<Response>>>
+    public class Request : IRequest<OperationResponse<Response>>
     {
         public Guid LanguageId { get; set; }
     }

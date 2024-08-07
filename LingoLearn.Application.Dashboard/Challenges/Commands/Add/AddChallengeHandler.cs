@@ -4,6 +4,7 @@ using Domain.Entities.General;
 using Domain.Repositories;
 using LingoLearn.Application.Dashboard.ContactsUs;
 using LingoLearn.Application.Dashboard.Levels;
+using Microsoft.EntityFrameworkCore;
 using Neptunee.BaseCleanArchitecture.OResponse;
 using Neptunee.BaseCleanArchitecture.Requests;
 
@@ -24,11 +25,17 @@ public class AddChallengeHandler : IRequestHandler<AddChallengeCommand.Request,
     public async Task<OperationResponse<GetAllChallengesQuery.Response>> HandleAsync(AddChallengeCommand.Request request,
         CancellationToken cancellationToken = new())
     {
+        var existedLevel = await _repository.Query<Challenge>()
+            .AnyAsync(l => l.StartDate.Date == request.StartDate.Date, cancellationToken);
+            
+        if (existedLevel)
+            return OperationResponse.WithBadRequest("A Challenge in this Date already exists!")
+                .ToResponse<GetAllChallengesQuery.Response>();
+        
         var imageUrl = await _fileService.Upload(request.ImageFile);
         var coverImageUrl = await _fileService.Upload(request.CoverImageFile);
         var challenge = new Challenge(request.Name, request.Description, request.LanguageId,
             request.StartDate, request.EndDate, request.Points, imageUrl ?? "", coverImageUrl ?? "");
-        
         _repository.Add(challenge);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         

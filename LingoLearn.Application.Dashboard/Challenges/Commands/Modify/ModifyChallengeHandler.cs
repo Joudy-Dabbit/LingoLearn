@@ -28,6 +28,13 @@ public class ModifyChallengeHandler: IRequestHandler<ModifyChallengeCommand.Requ
         if (challenge is not { UtcDateDeleted: null })
             return OperationResponse.WithBadRequest("Challenge Not found").ToResponse<GetByIdChallengeQuery.Response>();
 
+        var existedLevel = await _repository.Query<Challenge>()
+            .AnyAsync(l => l.StartDate.Date == request.StartDate.Date, cancellationToken);
+            
+        if (existedLevel)
+            return OperationResponse.WithBadRequest("A Challenge in this Date already exists!")
+                .ToResponse<GetByIdChallengeQuery.Response>();
+
         var imageUrl = await _fileService.Modify(challenge.ImageUrl, request.ImageFile);
         var coverImageUrl = await _fileService.Modify(challenge.CoverImageUrl, request.CoverImageFile);
 

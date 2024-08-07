@@ -15,16 +15,15 @@ public class ChallengeController : ApiController
 {
     public ChallengeController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     
-  
+    
     [AppAuthorize(LingoLearnRoles.Student, LingoLearnRoles.Student)]
     [HttpGet,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
     [ProducesResponseType(typeof(List<GetAllChallengesQuery.Response>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll(
+    public async Task<IActionResult> GetChallenge(
         [FromServices] IRequestHandler<GetAllChallengesQuery.Request, 
-            OperationResponse<List<GetAllChallengesQuery.Response>>> handler, 
+            OperationResponse<GetAllChallengesQuery.Response>> handler,
         [FromQuery] GetAllChallengesQuery.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();      
-    
     
     [AppAuthorize(LingoLearnRoles.Student, LingoLearnRoles.Student)]
     [HttpGet,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
@@ -41,7 +40,15 @@ public class ChallengeController : ApiController
     [ProducesResponseType(typeof(GetAllChallengesQuery.Response), StatusCodes.Status200OK)]
     public async Task<IActionResult> Join(
         [FromServices] IRequestHandler<JoinChallengeCommand.Request, OperationResponse> handler,
-        [FromForm] JoinChallengeCommand.Request request)
+        [FromQuery] JoinChallengeCommand.Request request)
+        => await handler.HandleAsync(request).ToJsonResultAsync();  
+   
+    [AppAuthorize(LingoLearnRoles.Student, LingoLearnRoles.Student)]
+    [HttpPost,LingoLearnRoute(ApiGroupNames.Mobile),ApiGroup(ApiGroupNames.Mobile)]
+    [ProducesResponseType(typeof(GetAllChallengesQuery.Response), StatusCodes.Status200OK)]
+    public async Task<IActionResult> SaveScore(
+        [FromServices] IRequestHandler<SaveScoreCommand.Request, OperationResponse> handler,
+        [FromQuery] SaveScoreCommand.Request request)
         => await handler.HandleAsync(request).ToJsonResultAsync();  
 
     // [AppAuthorize(LingoLearnRoles.Admin, LingoLearnRoles.Admin)]

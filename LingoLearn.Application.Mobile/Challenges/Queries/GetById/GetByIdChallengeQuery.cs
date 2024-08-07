@@ -26,6 +26,15 @@ public class GetByIdChallengeQuery
         public string ImageUrl { get; set; }
         public string CoverImageUrl { get; set; }
         public List<QuestionsRes> Questions { get; set; }
+        public List<ParticipantsRes> Participants { get; set; }
+
+        public class ParticipantsRes
+        {
+            public Guid Id { get; set; }
+            public string ImageUrl { get; set; }
+            public int Score { get; set; }
+        }
+        
 
         public class QuestionsRes
         {
@@ -58,6 +67,11 @@ public class GetByIdChallengeQuery
                 LanguageId = l.LanguageId,
                 ImageUrl = l.ImageUrl,
                 CoverImageUrl = l.CoverImageUrl,
+                Participants = l.Participants.Select(p => new ParticipantsRes()
+                {
+                    Id = p.Student.Id,
+                    ImageUrl = p.Student.ImagUrl
+                }).ToList(),
                 Questions = l.Questions.OrderBy(a => a.Order).Select(q => new QuestionsRes()
                 {
                     Id = q.Id,
