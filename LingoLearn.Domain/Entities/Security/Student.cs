@@ -44,8 +44,8 @@ public class Student: User
     private readonly List<StudentLesson> _studentLessons = new();
     public IReadOnlyCollection<StudentLesson> StudentLessons => _studentLessons.AsReadOnly();
     
-    private readonly List<StudentChallenge> _participants = new();
-    public IReadOnlyCollection<StudentChallenge> Participants => _participants.AsReadOnly();
+    private readonly List<StudentChallenge> _challenges = new();
+    public IReadOnlyCollection<StudentChallenge> Challenges => _challenges.AsReadOnly();
     
     
     private readonly List<Comment> _comments = new();
@@ -67,6 +67,12 @@ public class Student: User
     {
         var studentLanguage = new StudentLanguage(Id, languageId);
         _selectedLanguages.Add(studentLanguage);
+    }
+   
+    public void JoinChallenge(Guid challengeId)
+    {
+        var studentChallenge = new StudentChallenge(Id, challengeId);
+        _challenges.Add(studentChallenge);
     }
 
     public void AddScore(int score) => Score += score;

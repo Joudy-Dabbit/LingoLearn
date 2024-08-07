@@ -11,7 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace LingoLearn.Controllers.Dash;
 
-public class ChallengeController: ApiController
+public class ChallengeController : ApiController
 {
     public ChallengeController(IRequestDispatcher dispatcher) : base(dispatcher) { }
     

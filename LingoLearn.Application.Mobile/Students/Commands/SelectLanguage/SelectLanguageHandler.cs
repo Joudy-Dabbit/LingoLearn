@@ -8,7 +8,7 @@ using Neptunee.BaseCleanArchitecture.Requests;
 
 namespace LingoLearn.Application.Mobile.Students;
 
-public class SelectLanguageHandler: IRequestHandler<SelectLanguageCommand.Request, OperationResponse>
+public class SelectLanguageHandler : IRequestHandler<SelectLanguageCommand.Request, OperationResponse>
 {
     private readonly ILingoLearnRepository _repository;
     private readonly IHttpService _httpResolverService;
