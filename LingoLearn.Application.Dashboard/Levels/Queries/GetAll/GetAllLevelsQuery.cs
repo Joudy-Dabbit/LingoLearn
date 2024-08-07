@@ -18,7 +18,8 @@ public class GetAllLevelsQuery
         public string Name { get; set; }
         public int Order { get; set; }
         public string Description { get; set; }
-    
+        public int? PointOpenBy { get; set; }
+
         public Guid LanguageId { get; set; }
         public int LessonsCount { get; set; }
 
@@ -30,7 +31,8 @@ public class GetAllLevelsQuery
                 Description = l.Description,
                 LanguageId = l.LanguageId,
                 LessonsCount = l.Lessons.Count,
-                Order = l.Order
+                Order = l.Order,
+                PointOpenBy = l.PointOpenBy
             };
     }
 }

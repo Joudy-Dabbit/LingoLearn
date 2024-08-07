@@ -32,7 +32,7 @@ public class ModifyLevelHandler: IRequestHandler<ModifyLevelCommand.Request,
                 return OperationResponse.WithBadRequest("A level in this order already exists!")
                     .ToResponse<GetByIdLevelQuery.Response>();
         }
-        level.Modify(request.Name, request.Description, request.Order);
+        level.Modify(request.Name, request.Description, request.Order, request.PointOpenBy);
         
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         return await _repository.GetAsync(level.Id, GetByIdLevelQuery.Response.Selector);

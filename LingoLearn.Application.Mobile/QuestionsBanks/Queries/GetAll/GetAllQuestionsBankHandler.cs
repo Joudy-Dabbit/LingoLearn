@@ -19,5 +19,6 @@ public class GetAllQuestionsBankHandler : IRequestHandler<GetAllQuestionsBankQue
 
     public async Task<OperationResponse<List<GetAllQuestionsBankQuery.Response>>> HandleAsync(GetAllQuestionsBankQuery.Request request,
         CancellationToken cancellationToken = new())
-        => await _repository.GetAsync(e => !e.UtcDateDeleted.HasValue && e.LevelId == request.LevelId, GetAllQuestionsBankQuery.Response.Selector, "Answers");
+        => await _repository.GetAsync(e => !e.UtcDateDeleted.HasValue && e.LevelId == request.LevelId, 
+            GetAllQuestionsBankQuery.Response.Selector, "Answers");
 }

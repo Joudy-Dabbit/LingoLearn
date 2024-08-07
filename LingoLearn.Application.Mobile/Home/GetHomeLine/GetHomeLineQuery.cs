@@ -30,6 +30,8 @@ public class GetHomeLineQuery
             public string Name { get; set; }
             public int Order { get; set; }
             public string Description { get; set; }
+            public int? PointOpenBy { get; set; }
+            public bool IsAvailable { get; set; }
             public List<LessonsRes> Lessons { get; set; }
         }
         public class LessonsRes
@@ -60,6 +62,7 @@ public class GetHomeLineQuery
                     Name = v.Name,
                     Description = v.Description,
                     Order = v.Order,
+                    PointOpenBy = v.PointOpenBy,
                     Lessons =  v.Lessons.Select(le => new LessonsRes()
                     {
                         Id = le.Id,

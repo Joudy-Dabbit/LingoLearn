@@ -32,6 +32,8 @@ public class GetHomeLineHandler: IRequestHandler<GetHomeLineQuery.Request,
             .Where(l => l.Name == _httpService.CurrentProgrammingLang)
             .FirstOrDefaultAsync(cancellationToken);
         
+        var student = await _repository.Query<Student>().Where(l => l.Id == _httpService.CurrentUserId).FirstAsync(cancellationToken);
+        
         if(lang is null)
             return OperationResponse.WithBadRequest("Language in header not found!").ToResponse<GetHomeLineQuery.Response>();
 
@@ -50,6 +52,7 @@ public class GetHomeLineHandler: IRequestHandler<GetHomeLineQuery.Request,
         
         res.Levels.ForEach(l =>
         {
+            l.IsAvailable = l.PointOpenBy.HasValue && student.Score > l.PointOpenBy.Value;
             l.Lessons.ForEach(le =>
             {
                 le.IsDone = _repository.Query<StudentLesson>().Any(sl => sl.StudentId == _httpService.CurrentUserId && sl.LessonId == le.Id);

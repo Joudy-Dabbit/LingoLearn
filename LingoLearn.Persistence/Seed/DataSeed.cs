@@ -86,7 +86,7 @@ public static class DataSeed
          }
 
          var langId = context.Languages.First(l => l.Name == ProgrammingLang.Dart).Id;
-         context.Add(new Level("seed level", "seed Description", langId, 1));
+         context.Add(new Level("seed level", "seed Description", langId, 1, 200));
          await context.SaveChangesAsync();
      }
      private static async Task SeedLessons(LingoLearnDbContext context)

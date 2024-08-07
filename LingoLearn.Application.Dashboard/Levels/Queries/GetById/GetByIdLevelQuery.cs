@@ -20,6 +20,7 @@ public class GetByIdLevelQuery
         public string Description { get; set; }
         public Guid LanguageId { get; set; }
         public int Order { get; set; }
+        public int? PointOpenBy { get; set; }
         public List<LessonsRes> Lessons { get; set; }
         
         public class LessonsRes
@@ -41,6 +42,7 @@ public class GetByIdLevelQuery
                 Description = l.Description,
                 Order = l.Order,
                 LanguageId = l.LanguageId,
+                PointOpenBy = l.PointOpenBy,
                 Lessons = l.Lessons.Select(le => new LessonsRes()
                 {
                         Id = le.Id,

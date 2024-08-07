@@ -32,6 +32,9 @@ public class GetByIdLevelHandler : IRequestHandler<GetByIdLevelQuery.Request,
         var result = await _repository.GetAsync(request.Id,
             GetByIdLevelQuery.Response.Selector(_httpService.CurrentUserId!.Value, request.Search),
             "Lessons");
+        
+        var student = await _repository.Query<Student>().Where(l => l.Id == _httpService.CurrentUserId).FirstAsync(cancellationToken);
+        result.IsAvailable = level.PointOpenBy.HasValue && student.Score > level.PointOpenBy.Value;
 
         result.Lessons.ForEach(le =>
         {

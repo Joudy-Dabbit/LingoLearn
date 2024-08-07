@@ -42,7 +42,7 @@ public class GetAllQuestionsBankQuery
                     Order = v.Order,
                     Text = v.Text,
                     IsCorrect = v.IsCorrect
-                }).ToList()
+                }).OrderBy(a => a.Order).ToList()
             };
     }
 }

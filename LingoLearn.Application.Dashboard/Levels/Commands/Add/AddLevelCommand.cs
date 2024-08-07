@@ -12,7 +12,8 @@ public class AddLevelCommand
         public string Name { get; set; }
         public int Order { get; set; }
         public string Description { get; set; }
-    
+        public int? PointOpenBy { get; set; }
+
         public Guid LanguageId { get; set; }
     }
 }

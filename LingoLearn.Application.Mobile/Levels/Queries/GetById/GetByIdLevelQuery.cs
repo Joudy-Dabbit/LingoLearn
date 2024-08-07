@@ -20,6 +20,8 @@ public class GetByIdLevelQuery
         public string Name { get; set; }
         public string Description { get; set; }
         public Guid LanguageId { get; set; }
+        public int? PointOpenBy { get; set; }
+        public bool IsAvailable { get; set; }
         public List<LessonsRes> Lessons { get; set; }
         
         public class LessonsRes
@@ -45,6 +47,7 @@ public class GetByIdLevelQuery
                 Name = l.Name,
                 Description = l.Description,
                 LanguageId = l.LanguageId,
+                PointOpenBy = l.PointOpenBy,
                 Lessons = l.Lessons.Where(le => search == null || le.Name.Contains(search))
                     .Select(le => new LessonsRes()
                     {

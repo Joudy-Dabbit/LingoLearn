@@ -29,7 +29,8 @@ public class AddLevelHandler : IRequestHandler<AddLevelCommand.Request,
             return OperationResponse.WithBadRequest("A level in this order already exists!")
                 .ToResponse<GetAllLevelsQuery.Response>();
         
-        var level = new Level(request.Name, request.Description, request.LanguageId, request.Order);
+        var level = new Level(request.Name, request.Description, 
+            request.LanguageId, request.Order, request.PointOpenBy);
         _repository.Add(level);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
         
