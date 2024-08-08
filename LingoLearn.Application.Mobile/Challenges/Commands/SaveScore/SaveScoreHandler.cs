@@ -30,7 +30,13 @@ public class SaveScoreHandler : IRequestHandler<SaveScoreCommand.Request, Operat
 
         studentChallenge.AddScore(request.Score);
         await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
-
+        
+        var student = await _repository.TrackingQuery<Student>()
+            .Where(s => s.Id == _httpService.CurrentUserId)
+            .FirstOrDefaultAsync(cancellationToken);
+        student.AddScore(request.Score);
+        await _repository.UnitOfWork.SaveChangesAsync(cancellationToken);
+        
         return OperationResponse.WithOk();
     }
 }

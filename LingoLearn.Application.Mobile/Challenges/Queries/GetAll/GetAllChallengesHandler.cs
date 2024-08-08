@@ -31,6 +31,6 @@ public class GetAllChallengesHandler : IRequestHandler<GetAllChallengesQuery.Req
                   .Any(f => f.StudentId == _httpService.CurrentUserId && f.ChallengeId == challenge.Id);
           }
 
-          return challenges.FirstOrDefault();
+          return challenges.Any() ? challenges.First() : new GetAllChallengesQuery.Response();
     }
 }

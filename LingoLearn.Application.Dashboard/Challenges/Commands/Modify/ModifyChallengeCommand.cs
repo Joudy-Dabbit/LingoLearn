@@ -16,7 +16,7 @@ public class ModifyChallengeCommand
         public DateTime EndDate { get; set; }
         public int Points { get; set; }
         public Guid LanguageId { get; set; }
-        public IFormFile ImageFile { get; set; }
-        public IFormFile CoverImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
+        public IFormFile? CoverImageFile { get; set; }
     }
 }
